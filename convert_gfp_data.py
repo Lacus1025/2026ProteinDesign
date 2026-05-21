@@ -3,24 +3,80 @@ import pandas as pd
 # 读取文件
 df = pd.read_excel('./GFP_data.xlsx')
 
-# print(df)
-
-print(df.head())
-print(df.info())
+GFP_WT = {
+    "sfGFP": {
+        "sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTLVTTLTYGVQCFSRYPDHMKRHDFFKSAMPEGYVQERTISFKDDGTYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNFNSHNVYITADKQKNGIKANFKIRHNVMSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTLVTTLTYGVQCFSRYPDHMKRHDFFKSAMPEGYVQERTISFKDDGTYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNFNSHNVYITADKQKNGIKANFKIRHNVEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSVLSKDPNEKRDHMVLLEFVTAAGITHGMDELYKEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSVLSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "pdb": "2B3P",
+    },
+    "avGFP": {
+        "sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTLSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
+        "pdb": "2wur",
+    },
+    "amacGFP": {
+        "sequence": "MSKGEELFTGIVPVLIELDGDVHGHKFSVRGEGEGDADYGKLEIKFICTTGKLPVPWPTLVTTLSYGILCFARYPEHMKMNDFFKSAMPEGYIQERTIFFQDDGKYKTRGEVKFEGDTLVNRIELKGMDFKEDGNILGHKLEYNFNSHNVYIMPDKANNGLKVNFKIRHNIEGGGVQLADHYQTNVPLGDGPVLIPINHYLSCQTAISKDRNETRDHMVFLEFFSACGHTHGMDELYK",
+        "pdb": "7LG4",
+    },
+    "cgreGFP": {
+        "sequence": "MTALTEGAKLFEKEIPYITELEGDVEGMKFIIKGEGTGDATTGTIKAKYICTTGDLPVPWATILSSLSYGVFCFAKYPRHIADFFKSTQPDGYSQDRIISFDNDGQYDVKAKVTYENGTLYNRVTVKGTGFKSNGNILGMRVLYHSPPHAVYILPDRKNGGMKIEYNKAFDVMGGGHQMARHAQFNKPLGAWEEDYPLYHHLTVWTSFGKDPDDDETDHLTIVEVIKAVDLETYR",
+        "pdb": "2HPW",
+    },
+    "ppluGFP": {
+        "sequence": "MPAMKIECRITGTLNGVEFELVGGGEGTPEQGRMTNKMKSTKGALTFSPYLLSHVMGYGFYHFGTYPSGYENPFLHAINNGGYTNTRIEKYEDGGVLHVSFSYRYEAGRVIGDFKVVGTGFPEDSVIFTDKIIRSNATVEHLHPMGDNVLVGSFARTFSLRDGGYYSFVVDSHMHFKSAIHPSILQNGGPMFAFRRVEELHSNTELGIVEYQHAFKTPIAFA",
+        "pdb": "2G6X",
+    }
+}
 
 GFP_list = {}
 
-GFP_WT = {'sequence':df.loc[0].aaMutations,
-          'GFPtype':df.loc[0].GFPtype,
-          'Brightness':df.loc[0].Brightness
-         }
+# print(GFP_WT)
 
-print(GFP_WT)
+# for i in range(10):
+#     print(df.loc[i].aaMutations)
+#     print(df.loc[i].GFPtype)
+#     print(df.loc[i].Brightness)
 
-for i in range(10):
-    print(df.loc[i].aaMutations)
-    print(df.loc[i].GFPtype)
-    print(df.loc[i].Brightness)
+def get_mutated_sequence(original_seq, mutation_str):
+    if mutation_str == 'WT' or not mutation_str:
+        # print("WT")
+        return original_seq
 
-class load_GFP_list:
+    import re
+    match = re.match(r'([A-Z])(\d+)([A-Z])', mutation_str)
+    if not match:
+        raise ValueError(f"无法解析突变: {mutation_str}")
 
+    orig, pos, target = match.groups()
+    pos = int(pos) - 1  # 转换为0-based索引
+
+    seq_list = list(original_seq)
+    seq_list[pos] = target
+
+    return ''.join(seq_list)
+
+
+def get_json_sequence(file,batch=None):
+    _GFP_list = []
+
+    if batch is None:
+        batch = len(file) 
+        print(f"序列数:{batch}")
+
+    for i in range(batch):
+        mutation_str = file.loc[i, 'aaMutations']
+        gfp_type = file.loc[i, 'GFPtype'].strip()
+        brightness = file.loc[i, 'Brightness']
+        if gfp_type not in GFP_WT:
+            print(f"警告: 未知的GFP类型 '{gfp_type}'，跳过第{i}行")
+            continue
+        original_seq = GFP_WT[gfp_type]['sequence']
+        sequence = get_mutated_sequence(original_seq,mutation_str)
+        _GFP_list.append({
+            'index':i,
+            'sequence':sequence,
+            'type':gfp_type,
+            'Brightness':brightness
+        })
+    return _GFP_list
+
+if __name__ == '__main__':
+    print(get_json_sequence(df,5))
