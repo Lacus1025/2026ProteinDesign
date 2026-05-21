@@ -9,7 +9,7 @@ import pandas as pd
 
 from utils.convert_gfp_data import get_json_sequence
 
-SEQUENCE_LEN = 500
+SEQUENCE_LEN = 250
 
 class ESM_embedding():
     def __init__(self):
@@ -59,6 +59,8 @@ class ESM_embedding():
             print(f"Result structure: {dir(result)}")
             embeddings = None
         padded_embeddings = self._pad_embeddings(embeddings, SEQUENCE_LEN)
+        if torch.is_tensor(padded_embeddings):
+            return padded_embeddings.cpu().detach().numpy()
         return padded_embeddings
 
 if __name__ == '__main__':

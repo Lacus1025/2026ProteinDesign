@@ -1,71 +1,72 @@
 import sys
 import os
+
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import json
 import torch
 import torch.nn as nn
 import numpy as np
-from torch.utils.data import Dataset,DataLoader
-import pandas as pd
-from utils.convert_gfp_data import get_json_sequence
+from torch.utils.data import Dataset, DataLoader
 
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
-from esm.esmc_embedding import ESM_embedding
-
 SEED = 114514
 
-df = pd.read_excel('./GFP_data.xlsx')
 
 class GFP_Dataset(Dataset):
     def __init__(self, file):
-        self.data = get_json_sequence(file)
+        self.data = json.load(open(file))
+        embeddings_path = file.replace(".json", "_embeddings.npy")
+        self.embeddings = np.load(embeddings_path).astype(np.float32)
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        sample = self.data[idx]["sequence"]
+        embedding = self.embeddings[idx]
         label = self.data[idx]["brightness"]
-        return sample, label
+        return embedding, label
+
 
 # 实例化数据集
-dataset = GFP_Dataset(df)
-embedding = ESM_embedding()
+dataset = GFP_Dataset("./gfp_dataset.json")
 
 # 测试数据集
 print("数据集大小:", len(dataset))
-print("第 0 个样本:", dataset[0])
+emb, label = dataset[0]
+print("第 0 个样本 embedding shape:", emb.shape, "label:", label)
 
-all_sequences = []
-all_labels = []
-# for i in range(len(dataset)):
-for i in range(100):
-    seq_str, label = dataset[i]
-    all_sequences.append(embedding.embedding_sequence(seq_str))
-    all_labels.append(label)
-
-X = np.array(all_sequences)
-y = np.array(all_labels)
+X = dataset.embeddings
+y = np.array([d["brightness"] for d in dataset.data])
 
 if len(dataset) > 10:
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=SEED)
-    print(f"Split data into training ({len(X_train)}) and validation ({len(X_val)}) sets.")
+    X_train, X_val, y_train, y_val = train_test_split(
+        X, y, test_size=0.2, random_state=SEED
+    )
+    print(
+        f"Split data into training ({len(X_train)}) and validation ({len(X_val)}) sets."
+    )
 else:
     print("Dataset too small for validation split, using all data for training.")
     X_train, y_train = X, y
     X_val, y_val = None, None
 
+print("X.shape:")
+print(X.shape)
+print("y.shape:")
+print(y.shape)
+
 # --- 4.2 初始化并训练随机森林模型 ---
 print("\nTraining Random Forest Regressor...")
 rf_model = RandomForestRegressor(
-    n_estimators=100, # 树的数量，可以调整
+    n_estimators=100,  # 树的数量，可以调整
     random_state=SEED,
-    n_jobs=-1, # 使用所有可用的 CPU 核心
-    max_depth=20, # 限制树的深度，防止过拟合 (可调整)
-    min_samples_leaf=3 # 叶节点最小样本数 (可调整)
+    n_jobs=-1,  # 使用所有可用的 CPU 核心
+    max_depth=20,  # 限制树的深度，防止过拟合 (可调整)
+    min_samples_leaf=3,  # 叶节点最小样本数 (可调整)
 )
 
 rf_model.fit(X_train, y_train)

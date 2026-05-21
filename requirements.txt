@@ -1,1 +1,7 @@
 panda
+openpyxl
+torch
+esm
+numpy
+scikit-learn
+tqdm
