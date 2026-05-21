@@ -2,3 +2,4 @@ DS_Store
 referencepaper
 2026Protein Design in Synbio challenges.pdf
 ./**/*.pdf
+__pycache__
