@@ -1,5 +1,7 @@
 import pandas as pd
 
+import re
+
 # 读取文件
 df = pd.read_excel('./GFP_data.xlsx')
 
@@ -36,21 +38,41 @@ GFP_list = {}
 #     print(df.loc[i].Brightness)
 
 def get_mutated_sequence(original_seq, mutation_str):
+    print(original_seq)
+    print(mutation_str)
+
     if mutation_str == 'WT' or not mutation_str:
-        # print("WT")
+        print("WT")
         return original_seq
 
-    import re
-    match = re.match(r'([A-Z])(\d+)([A-Z])', mutation_str)
-    if not match:
-        raise ValueError(f"无法解析突变: {mutation_str}")
+    # 分割多个突变
+    if ':' in mutation_str:
+        mutations = mutation_str.split(':')
+    else:
+        mutations = [mutation_str]
 
-    orig, pos, target = match.groups()
-    pos = int(pos) - 1  # 转换为0-based索引
-
+    # 应用所有突变
     seq_list = list(original_seq)
-    seq_list[pos] = target
+    for mut in mutations:
+        match = re.match(r'([A-Z\*])(\d+)([A-Z\*])', mut)
+        if not match:
+            raise ValueError(f"无法解析突变: {mut}")
 
+        orig, pos, target = match.groups()
+        pos = int(pos)
+
+        if orig != '*' and seq_list[pos] != orig:
+            print(f"ERROR: 位置 {pos} 期望 {orig}，实际是 {seq_list[pos]}")
+            assert(0)
+
+        if pos == len(seq_list):
+            # 在末尾添加新氨基酸
+            seq_list.append(target)
+            print(f"  在末尾添加 {target}，新长度: {len(seq_list)}")
+            continue
+
+        seq_list[pos] = target
+    print(''.join(seq_list))
     return ''.join(seq_list)
 
 
@@ -58,7 +80,7 @@ def get_json_sequence(file,batch=None):
     _GFP_list = []
 
     if batch is None:
-        batch = len(file) 
+        batch = len(file)
         print(f"序列数:{batch}")
 
     for i in range(batch):
@@ -74,7 +96,7 @@ def get_json_sequence(file,batch=None):
             'index':i,
             'sequence':sequence,
             'type':gfp_type,
-            'Brightness':brightness
+            'brightness':brightness
         })
     return _GFP_list
 

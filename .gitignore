@@ -3,3 +3,4 @@ referencepaper
 2026Protein Design in Synbio challenges.pdf
 ./**/*.pdf
 __pycache__
+**/__pycache__
