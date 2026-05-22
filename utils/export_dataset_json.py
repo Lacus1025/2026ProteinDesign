@@ -7,6 +7,7 @@ import json
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import torch
 
 from utils.convert_gfp_data import get_json_sequence
 from esm_utils.esmc_embedding import ESM_embedding
@@ -22,11 +23,18 @@ def export_dataset_json(output_path, batch=None):
 
     serializable_data = []
 
-    data = data[:10000]
+    # data = data[:]
     for item in tqdm(data, desc="Exporting dataset"):
         seq = item["sequence"]
         emb = embedding_model.embedding_sequence(seq)
-        emb = emb.squeeze(0).flatten()
+        if torch.is_tensor(emb):
+            emb = emb.detach().cpu().numpy()
+
+        # 处理嵌入
+        emb = np.squeeze(emb, axis=0)  # 移除 batch 维度
+        emb = emb[1:-1]                # 剔除特殊 token
+        emb = emb.mean(axis=0)         # 平均池化
+
         all_embeddings.append(emb)
 
         serializable_data.append(

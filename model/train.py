@@ -1,11 +1,13 @@
+import datetime
 import sys
 import os
-
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import json
 import torch
 import torch.nn as nn
+import torch.optim as optim
+
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 
@@ -14,7 +16,6 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 
 SEED = 114514
-
 
 class GFP_Dataset(Dataset):
     def __init__(self, file):
@@ -31,57 +32,64 @@ class GFP_Dataset(Dataset):
         return embedding, label
 
 
+
 # 实例化数据集
 dataset = GFP_Dataset("./gfp_dataset.json")
+train_size = int(0.8 * len(dataset))
+test_size = len(dataset) - train_size
+train_dataset, test_dataset = torch.utils.data.random_split(
+    dataset, [train_size, test_size],
+    generator=torch.Generator().manual_seed(SEED)
+)
+
+# 实例化 DataLoader
+# dataloader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=0)
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=0)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=0)
+
+
+for batch_idx, (batch_data, batch_labels) in enumerate(train_loader):
+    print(f"批次 {batch_idx + 1}")
+    print("数据:", batch_data)
+    print("标签:", batch_labels)
+    if batch_idx == 2:  # 仅显示前 3 个批次
+        break
 
 # 测试数据集
 print("数据集大小:", len(dataset))
-emb, label = dataset[0]
-print("第 0 个样本 embedding shape:", emb.shape, "label:", label)
 
-X = dataset.embeddings
-y = np.array([d["brightness"] for d in dataset.data])
+from model.BrightnessRegressor import BrightnessRegressor
 
-if len(dataset) > 10:
-    X_train, X_val, y_train, y_val = train_test_split(
-        X, y, test_size=0.2, random_state=SEED
-    )
-    print(
-        f"Split data into training ({len(X_train)}) and validation ({len(X_val)}) sets."
-    )
-else:
-    print("Dataset too small for validation split, using all data for training.")
-    X_train, y_train = X, y
-    X_val, y_val = None, None
+model = BrightnessRegressor(960)
 
-print("X.shape:")
-print(X.shape)
-print("y.shape:")
-print(y.shape)
 
-# --- 4.2 初始化并训练随机森林模型 ---
-print("\nTraining Random Forest Regressor...")
-rf_model = RandomForestRegressor(
-    n_estimators=100,  # 树的数量，可以调整
-    random_state=SEED,
-    n_jobs=-1,  # 使用所有可用的 CPU 核心
-    max_depth=20,  # 限制树的深度，防止过拟合 (可调整)
-    min_samples_leaf=3,  # 叶节点最小样本数 (可调整)
-)
+criterion = nn.MSELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.0000001)
 
-rf_model.fit(X_train, y_train)
-print("Random Forest training complete.")
+num_epochs = 10000
+model.train()  # 设置模型为训练模式
 
-# --- 4.3 (可选) 评估模型性能 ---
-if X_val is not None:
-    y_pred_val = rf_model.predict(X_val)
-    r2 = r2_score(y_val, y_pred_val)
-    print(f"\nModel Performance on Validation Set:")
-    print(f"  R-squared (R²): {r2:.4f}")
-    # R² 接近 1 表示模型拟合得较好，接近 0 或负数表示拟合很差
-else:
-    # 可以在训练集上评估，但这通常会过于乐观
-    y_pred_train = rf_model.predict(X_train)
-    r2_train = r2_score(y_train, y_pred_train)
-    print("\nModel Performance on Training Set (may be optimistic):")
-    print(f"  R-squared (R²): {r2_train:.4f}")
+for epoch in range(num_epochs):
+    total_loss = 0
+    for data, labels in train_loader:
+        outputs = model(data)  # 前向传播
+        loss = criterion(outputs, labels)  # 计算损失
+
+        optimizer.zero_grad()  # 清空梯度
+        loss.backward()  # 反向传播
+        optimizer.step()  # 更新参数
+
+        total_loss += loss.item()
+
+    print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {total_loss / len(train_loader):.4f}")
+
+torch.save(model, 'model.pth')
+
+model.eval()  # 设置模型为评估模式
+
+with torch.no_grad():  # 关闭梯度计算
+    for data, labels in test_loader:
+        outputs = model(data)
+        for i in range(len(outputs)):
+            print(f"predicted:{outputs[i].item():.4f}  labels:{labels[i].item():.4f}    error:{outputs[i].item()-labels[i].item():.4f}")
+        print()

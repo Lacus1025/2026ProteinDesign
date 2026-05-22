@@ -9,7 +9,7 @@ import pandas as pd
 
 from utils.convert_gfp_data import get_json_sequence
 
-SEQUENCE_LEN = 250
+SEQUENCE_LEN = 500
 
 class ESM_embedding():
     def __init__(self):
