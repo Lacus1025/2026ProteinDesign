@@ -14,7 +14,7 @@ SEQUENCE_LEN = 500
 class ESM_embedding():
     def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.model = ESMC.from_pretrained("esmc_300m").to(self.device)
+        self.model = ESMC.from_pretrained("esmc_600m").to(self.device)
         self.sequence_len = SEQUENCE_LEN
 
     def _create_protein(self,sequence):

@@ -35,7 +35,7 @@ class GFP_Dataset(Dataset):
 
 # 实例化数据集
 dataset = GFP_Dataset("./gfp_dataset.json")
-train_size = int(0.8 * len(dataset))
+train_size = int(0.999 * len(dataset))
 test_size = len(dataset) - train_size
 train_dataset, test_dataset = torch.utils.data.random_split(
     dataset, [train_size, test_size],
@@ -86,10 +86,28 @@ for epoch in range(num_epochs):
 torch.save(model, 'model.pth')
 
 model.eval()  # 设置模型为评估模式
+total_loss = 0
+total_samples = 0
 
 with torch.no_grad():  # 关闭梯度计算
     for data, labels in test_loader:
         outputs = model(data)
+
         for i in range(len(outputs)):
-            print(f"predicted:{outputs[i].item():.4f}  labels:{labels[i].item():.4f}    error:{outputs[i].item()-labels[i].item():.4f}")
-        print()
+            pred = outputs[i].item()
+            true = labels[i].item()
+
+            # 修正括号错误 - 计算相对误差的平方
+            # 原始错误: (pred - true / true)**2  → 应该是 ((pred - true) / true)**2
+            if true != 0:  # 避免除以0
+                relative_error = (pred - true) / true
+                loss = relative_error ** 2
+            else:
+                loss = (pred - true) ** 2  # 如果真实值为0，使用绝对误差平方
+
+            print(f"predicted:{pred:.4f}  labels:{true:.4f}    error:{pred - true:.4f}    loss:{loss:.6f}")
+            total_loss += loss
+            total_samples += 1
+
+    avg_loss = total_loss / total_samples
+    print(f"\n平均损失 (MSE): {avg_loss:.6f}")
