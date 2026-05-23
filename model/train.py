@@ -27,7 +27,9 @@ class GFP_Dataset(Dataset):
 
     def __getitem__(self, idx):
         embedding = self.embeddings[idx]
+        embedding = torch.from_numpy(embedding)
         label = self.data[idx]["brightness"]
+        label = torch.tensor(label,dtype=torch.float32)
         return embedding, label
 
 def save_checkpoint(state, is_best, checkpoint_dir='checkpoints', filename='checkpoint.pth.tar'):
