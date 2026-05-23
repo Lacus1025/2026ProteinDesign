@@ -5,3 +5,5 @@ referencepaper
 __pycache__
 **/__pycache__
 *.npy
+*.pth
+*.tar

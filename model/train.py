@@ -7,13 +7,12 @@ import json
 import torch
 import torch.nn as nn
 import torch.optim as optim
-
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
-
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
+import shutil
 
 SEED = 114514
 
@@ -31,83 +30,260 @@ class GFP_Dataset(Dataset):
         label = self.data[idx]["brightness"]
         return embedding, label
 
+def save_checkpoint(state, is_best, checkpoint_dir='checkpoints', filename='checkpoint.pth.tar'):
+    if not os.path.exists(checkpoint_dir):
+        os.makedirs(checkpoint_dir)
 
+    checkpoint_path = os.path.join(checkpoint_dir, filename)
+    torch.save(state, checkpoint_path)
 
-# 实例化数据集
+    if is_best:
+        best_model_path = os.path.join(checkpoint_dir, 'best_model.pth.tar')
+        shutil.copyfile(checkpoint_path, best_model_path)
+        print(f"保存最佳模型到 {best_model_path}")
+
+def load_checkpoint(checkpoint_path, model, optimizer=None):
+    if os.path.exists(checkpoint_path):
+        checkpoint = torch.load(checkpoint_path)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        if optimizer:
+            optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        start_epoch = checkpoint['epoch']
+        best_loss = checkpoint.get('best_loss', float('inf'))
+        print(f"加载checkpoint: epoch {start_epoch}, loss {best_loss:.6f}")
+        return start_epoch, best_loss
+    return 0, float('inf')
+
+def log_training_info(log_path, epoch, train_loss, val_loss=None, lr=None, is_checkpoint=False):
+    logs = []
+    if os.path.exists(log_path):
+        with open(log_path, 'r', encoding='utf-8') as f:
+            try:
+                logs = json.load(f)
+            except json.JSONDecodeError:
+                logs = []
+
+    log_entry = {
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "epoch": epoch,
+        "train_loss": float(train_loss),
+        "is_checkpoint": is_checkpoint
+    }
+
+    if val_loss is not None:
+        log_entry["val_loss"] = float(val_loss)
+
+    if lr is not None:
+        log_entry["learning_rate"] = float(lr)
+
+    logs.append(log_entry)
+
+    with open(log_path, 'w', encoding='utf-8') as f:
+        json.dump(logs, f, ensure_ascii=False, indent=2)
+
+    return log_entry
+
+def evaluate_model(model, test_loader, criterion):
+    model.eval()
+    total_loss = 0
+    predictions = []
+    true_values = []
+
+    with torch.no_grad():
+        for data, labels in test_loader:
+            outputs = model(data)
+            loss = criterion(outputs, labels)
+            total_loss += loss.item() * len(data)
+
+            predictions.extend(outputs.cpu().numpy())
+            true_values.extend(labels.cpu().numpy())
+
+    avg_loss = total_loss / len(test_loader.dataset)
+    r2 = r2_score(true_values, predictions)
+
+    return avg_loss, r2, predictions, true_values
+
 dataset = GFP_Dataset("./gfp_dataset.json")
-train_size = int(0.999 * len(dataset))
+train_size = int(0.9 * len(dataset))
 test_size = len(dataset) - train_size
 train_dataset, test_dataset = torch.utils.data.random_split(
     dataset, [train_size, test_size],
     generator=torch.Generator().manual_seed(SEED)
 )
 
-# 实例化 DataLoader
-# dataloader = DataLoader(dataset, batch_size=1, shuffle=True, num_workers=0)
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=0)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=0)
 
-
-for batch_idx, (batch_data, batch_labels) in enumerate(train_loader):
-    print(f"批次 {batch_idx + 1}")
-    print("数据:", batch_data)
-    print("标签:", batch_labels)
-    if batch_idx == 2:  # 仅显示前 3 个批次
-        break
-
-# 测试数据集
 print("数据集大小:", len(dataset))
 
 from model.BrightnessRegressor import BrightnessRegressor
 
-model = BrightnessRegressor(960)
+CONFIG = {
+    "input_dim": 1152,
+    "learning_rate": 0.0001,
+    "num_epochs": 500,
+    "checkpoint_freq": 10,
+    "early_stopping_patience": 50,
+    "checkpoint_dir": "checkpoints",
+    "log_file": "training_logs.json"
+}
 
-
+model = BrightnessRegressor(CONFIG["input_dim"])
 criterion = nn.MSELoss()
-optimizer = optim.Adam(model.parameters(), lr=0.0000001)
+optimizer = optim.Adam(model.parameters(), lr=CONFIG["learning_rate"])
 
-num_epochs = 10000
-model.train()  # 设置模型为训练模式
+checkpoint_path = os.path.join(CONFIG["checkpoint_dir"], 'checkpoint.pth.tar')
+start_epoch, best_val_loss = load_checkpoint(checkpoint_path, model, optimizer)
 
-for epoch in range(num_epochs):
+num_epochs = CONFIG["num_epochs"]
+checkpoint_freq = CONFIG["checkpoint_freq"]
+early_stopping_patience = CONFIG["early_stopping_patience"]
+log_file = CONFIG["log_file"]
+
+print(f"开始训练，从epoch {start_epoch + 1} 到 {num_epochs}")
+print(f"Checkpoint保存频率: 每{checkpoint_freq}个epoch")
+print(f"早停耐心值: {early_stopping_patience}")
+
+best_val_loss = float('inf')
+patience_counter = 0
+
+for epoch in range(start_epoch, num_epochs):
+    model.train()
     total_loss = 0
-    for data, labels in train_loader:
-        outputs = model(data)  # 前向传播
-        loss = criterion(outputs, labels)  # 计算损失
 
-        optimizer.zero_grad()  # 清空梯度
-        loss.backward()  # 反向传播
-        optimizer.step()  # 更新参数
+    # 训练阶段
+    for data, labels in train_loader:
+        outputs = model(data)
+        loss = criterion(outputs, labels)
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
         total_loss += loss.item()
 
-    print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {total_loss / len(train_loader):.4f}")
+    avg_train_loss = total_loss / len(train_loader)
 
-torch.save(model, 'model.pth')
+    # 验证阶段
+    val_loss, val_r2, _, _ = evaluate_model(model, test_loader, criterion)
 
-model.eval()  # 设置模型为评估模式
+    # 打印训练信息
+    print(f"Epoch [{epoch+1}/{num_epochs}], Train Loss: {avg_train_loss:.6f}, Val Loss: {val_loss:.6f}, R2: {val_r2:.4f}")
+
+    # 记录日志
+    current_lr = optimizer.param_groups[0]['lr']
+    log_entry = log_training_info(log_file, epoch+1, avg_train_loss, val_loss, current_lr, is_checkpoint=False)
+
+    # 检查是否为最佳模型
+    is_best = val_loss < best_val_loss
+    if is_best:
+        best_val_loss = val_loss
+        patience_counter = 0
+        print(f"  -> 新的最佳模型！验证损失: {best_val_loss:.6f}")
+    else:
+        patience_counter += 1
+
+    # 保存checkpoint
+    if (epoch + 1) % checkpoint_freq == 0 or epoch == num_epochs - 1:
+        checkpoint_state = {
+            'epoch': epoch + 1,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'best_loss': best_val_loss,
+            'train_loss': avg_train_loss,
+            'val_loss': val_loss,
+            'config': CONFIG
+        }
+        save_checkpoint(checkpoint_state, is_best, CONFIG["checkpoint_dir"],
+                       f'checkpoint_epoch_{epoch+1}.pth.tar')
+
+        # 记录checkpoint日志
+        log_training_info(log_file, epoch+1, avg_train_loss, val_loss, current_lr, is_checkpoint=True)
+
+    # 早停检查
+    if patience_counter >= early_stopping_patience:
+        print(f"早停触发！在epoch {epoch+1} 停止训练")
+        break
+
+# 保存最终模型
+final_model_path = 'model_final.pth'
+torch.save({
+    'model_state_dict': model.state_dict(),
+    'optimizer_state_dict': optimizer.state_dict(),
+    'best_val_loss': best_val_loss,
+    'config': CONFIG
+}, final_model_path)
+print(f"最终模型保存到 {final_model_path}")
+
+# 最终评估
+print("\n" + "="*50)
+print("最终模型评估")
+print("="*50)
+
+model.eval()
 total_loss = 0
-total_samples = 0
+all_predictions = []
+all_labels = []
+detailed_results = []
 
-with torch.no_grad():  # 关闭梯度计算
+with torch.no_grad():
     for data, labels in test_loader:
         outputs = model(data)
+        loss = criterion(outputs, labels)
+        total_loss += loss.item() * len(data)
 
+        # 收集详细结果用于日志
         for i in range(len(outputs)):
             pred = outputs[i].item()
             true = labels[i].item()
+            all_predictions.append(pred)
+            all_labels.append(true)
 
-            # 修正括号错误 - 计算相对误差的平方
-            # 原始错误: (pred - true / true)**2  → 应该是 ((pred - true) / true)**2
-            if true != 0:  # 避免除以0
+            if true != 0:
                 relative_error = (pred - true) / true
-                loss = relative_error ** 2
+                rel_error_sq = relative_error ** 2
             else:
-                loss = (pred - true) ** 2  # 如果真实值为0，使用绝对误差平方
+                rel_error_sq = (pred - true) ** 2
 
-            print(f"predicted:{pred:.4f}  labels:{true:.4f}    error:{pred - true:.4f}    loss:{loss:.6f}")
-            total_loss += loss
-            total_samples += 1
+            detailed_results.append({
+                "predicted": round(pred, 4),
+                "true_value": round(true, 4),
+                "absolute_error": round(pred - true, 4),
+                "relative_error_squared": round(rel_error_sq, 6)
+            })
 
-    avg_loss = total_loss / total_samples
-    print(f"\n平均损失 (MSE): {avg_loss:.6f}")
+            print(f"predicted:{pred:.4f}  labels:{true:.4f}    error:{pred - true:.4f}    loss:{rel_error_sq:.6f}")
+
+avg_loss = total_loss / len(test_loader.dataset)
+r2 = r2_score(all_labels, all_predictions)
+
+# 保存评估结果到JSON
+final_results = {
+    "evaluation_summary": {
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total_samples": len(test_loader.dataset),
+        "mean_squared_error": round(avg_loss, 6),
+        "r2_score": round(r2, 4),
+        "best_val_loss_during_training": round(best_val_loss, 6),
+        "final_epoch": epoch + 1
+    },
+    "detailed_predictions": detailed_results[:50],  # 只保存前50个详细结果避免文件过大
+    "training_config": CONFIG
+}
+
+# 追加或覆盖最终结果
+results_file = "evaluation_results.json"
+if os.path.exists(results_file):
+    with open(results_file, 'r', encoding='utf-8') as f:
+        existing_results = json.load(f)
+    existing_results.append(final_results)
+    final_results = existing_results
+
+with open(results_file, 'w', encoding='utf-8') as f:
+    json.dump(final_results, f, ensure_ascii=False, indent=2)
+
+print(f"\n平均损失 (MSE): {avg_loss:.6f}")
+print(f"R² 分数: {r2:.4f}")
+print(f"\n评估结果已保存到: {results_file}")
+print(f"训练日志已保存到: {log_file}")
+print(f"Checkpoints保存在: {CONFIG['checkpoint_dir']}/")

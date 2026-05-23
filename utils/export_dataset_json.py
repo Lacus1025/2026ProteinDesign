@@ -23,7 +23,7 @@ def export_dataset_json(output_path, batch=None):
 
     serializable_data = []
 
-    # data = data[:]
+    data = data[:1000]
     for item in tqdm(data, desc="Exporting dataset"):
         seq = item["sequence"]
         emb = embedding_model.embedding_sequence(seq)
