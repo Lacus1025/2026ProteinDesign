@@ -16,6 +16,22 @@ import shutil
 
 SEED = 114514
 
+# 设置设备
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print(f"使用设备: {device}")
+if device.type == 'cuda':
+    print(f"GPU: {torch.cuda.get_device_name(0)}")
+    print(f"显存: {torch.cuda.get_device_properties(0).total_memory / 1e9:.2f} GB")
+
+# 设置随机种子
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed(SEED)
+    torch.cuda.manual_seed_all(SEED)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
 class GFP_Dataset(Dataset):
     def __init__(self, file):
         self.data = json.load(open(file))
@@ -29,7 +45,7 @@ class GFP_Dataset(Dataset):
         embedding = self.embeddings[idx]
         embedding = torch.from_numpy(embedding)
         label = self.data[idx]["brightness"]
-        label = torch.tensor(label,dtype=torch.float32)
+        label = torch.tensor(label, dtype=torch.float32)
         return embedding, label
 
 def save_checkpoint(state, is_best, checkpoint_dir='checkpoints', filename='checkpoint.pth.tar'):
@@ -46,7 +62,7 @@ def save_checkpoint(state, is_best, checkpoint_dir='checkpoints', filename='chec
 
 def load_checkpoint(checkpoint_path, model, optimizer=None):
     if os.path.exists(checkpoint_path):
-        checkpoint = torch.load(checkpoint_path)
+        checkpoint = torch.load(checkpoint_path, map_location=device)
         model.load_state_dict(checkpoint['model_state_dict'])
         if optimizer:
             optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
@@ -85,7 +101,7 @@ def log_training_info(log_path, epoch, train_loss, val_loss=None, lr=None, is_ch
 
     return log_entry
 
-def evaluate_model(model, test_loader, criterion):
+def evaluate_model(model, test_loader, criterion, device):
     model.eval()
     total_loss = 0
     predictions = []
@@ -93,6 +109,7 @@ def evaluate_model(model, test_loader, criterion):
 
     with torch.no_grad():
         for data, labels in test_loader:
+            data, labels = data.to(device), labels.to(device)
             outputs = model(data)
             loss = criterion(outputs, labels)
             total_loss += loss.item() * len(data)
@@ -105,6 +122,7 @@ def evaluate_model(model, test_loader, criterion):
 
     return avg_loss, r2, predictions, true_values
 
+# 加载数据集
 dataset = GFP_Dataset("./gfp_dataset.json")
 train_size = int(0.9 * len(dataset))
 test_size = len(dataset) - train_size
@@ -113,26 +131,40 @@ train_dataset, test_dataset = torch.utils.data.random_split(
     generator=torch.Generator().manual_seed(SEED)
 )
 
-train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True, num_workers=0)
-test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False, num_workers=0)
+# 使用多个worker加速数据加载
+num_workers = 4 if device.type == 'cuda' else 0
+train_loader = DataLoader(train_dataset, batch_size=256, shuffle=True,
+                         num_workers=num_workers, pin_memory=True if device.type == 'cuda' else False)
+test_loader = DataLoader(test_dataset, batch_size=256, shuffle=False,
+                        num_workers=num_workers, pin_memory=True if device.type == 'cuda' else False)
 
 print("数据集大小:", len(dataset))
+print(f"训练集大小: {len(train_dataset)}")
+print(f"测试集大小: {len(test_dataset)}")
 
 from model.BrightnessRegressor import BrightnessRegressor
 
 CONFIG = {
     "input_dim": 1152,
     "learning_rate": 0.0001,
-    "num_epochs": 500,
+    "num_epochs": 2000,
     "checkpoint_freq": 10,
-    "early_stopping_patience": 50,
+    "early_stopping_patience": 200,
     "checkpoint_dir": "checkpoints",
-    "log_file": "training_logs.json"
+    "log_file": "training_logs.json",
+    "device": device.type
 }
 
+# 创建模型并移动到GPU
 model = BrightnessRegressor(CONFIG["input_dim"])
+model = model.to(device)
+print(f"模型参数量: {sum(p.numel() for p in model.parameters()):,}")
+
 criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=CONFIG["learning_rate"])
+
+# 可选：添加学习率调度器
+# scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10)
 
 checkpoint_path = os.path.join(CONFIG["checkpoint_dir"], 'checkpoint.pth.tar')
 start_epoch, best_val_loss = load_checkpoint(checkpoint_path, model, optimizer)
@@ -155,11 +187,18 @@ for epoch in range(start_epoch, num_epochs):
 
     # 训练阶段
     for data, labels in train_loader:
+        # 将数据移动到GPU
+        data, labels = data.to(device), labels.to(device)
+
         outputs = model(data)
         loss = criterion(outputs, labels)
 
         optimizer.zero_grad()
         loss.backward()
+
+        # 梯度裁剪，防止梯度爆炸
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+
         optimizer.step()
 
         total_loss += loss.item()
@@ -167,13 +206,16 @@ for epoch in range(start_epoch, num_epochs):
     avg_train_loss = total_loss / len(train_loader)
 
     # 验证阶段
-    val_loss, val_r2, _, _ = evaluate_model(model, test_loader, criterion)
+    val_loss, val_r2, _, _ = evaluate_model(model, test_loader, criterion, device)
+
+    # 学习率调度
+    # scheduler.step(val_loss)
 
     # 打印训练信息
-    print(f"Epoch [{epoch+1}/{num_epochs}], Train Loss: {avg_train_loss:.6f}, Val Loss: {val_loss:.6f}, R2: {val_r2:.4f}")
+    current_lr = optimizer.param_groups[0]['lr']
+    print(f"Epoch [{epoch+1}/{num_epochs}], Train Loss: {avg_train_loss:.6f}, Val Loss: {val_loss:.6f}, R2: {val_r2:.4f}, LR: {current_lr:.2e}")
 
     # 记录日志
-    current_lr = optimizer.param_groups[0]['lr']
     log_entry = log_training_info(log_file, epoch+1, avg_train_loss, val_loss, current_lr, is_checkpoint=False)
 
     # 检查是否为最佳模型
@@ -230,14 +272,18 @@ detailed_results = []
 
 with torch.no_grad():
     for data, labels in test_loader:
+        data, labels = data.to(device), labels.to(device)
         outputs = model(data)
         loss = criterion(outputs, labels)
         total_loss += loss.item() * len(data)
 
         # 收集详细结果用于日志
-        for i in range(len(outputs)):
-            pred = outputs[i].item()
-            true = labels[i].item()
+        outputs_cpu = outputs.cpu()
+        labels_cpu = labels.cpu()
+
+        for i in range(len(outputs_cpu)):
+            pred = outputs_cpu[i].item()
+            true = labels_cpu[i].item()
             all_predictions.append(pred)
             all_labels.append(true)
 
@@ -254,7 +300,9 @@ with torch.no_grad():
                 "relative_error_squared": round(rel_error_sq, 6)
             })
 
-            print(f"predicted:{pred:.4f}  labels:{true:.4f}    error:{pred - true:.4f}    loss:{rel_error_sq:.6f}")
+            # 只打印前100个结果避免输出过多
+            if len(detailed_results) <= 100:
+                print(f"predicted:{pred:.4f}  labels:{true:.4f}    error:{pred - true:.4f}    loss:{rel_error_sq:.6f}")
 
 avg_loss = total_loss / len(test_loader.dataset)
 r2 = r2_score(all_labels, all_predictions)
@@ -267,25 +315,59 @@ final_results = {
         "mean_squared_error": round(avg_loss, 6),
         "r2_score": round(r2, 4),
         "best_val_loss_during_training": round(best_val_loss, 6),
-        "final_epoch": epoch + 1
+        "final_epoch": epoch + 1,
+        "device": device.type
     },
     "detailed_predictions": detailed_results[:50],  # 只保存前50个详细结果避免文件过大
     "training_config": CONFIG
 }
 
 # 追加或覆盖最终结果
+# 保存评估结果到JSON - 简化版本
 results_file = "evaluation_results.json"
+
+# 创建新的评估结果条目
+new_result = {
+    "evaluation_summary": {
+        "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "total_samples": len(test_loader.dataset),
+        "mean_squared_error": round(avg_loss, 6),
+        "r2_score": round(r2, 4),
+        "best_val_loss_during_training": round(best_val_loss, 6),
+        "final_epoch": epoch + 1,
+        "device": device.type if torch.cuda.is_available() else 'cpu'
+    },
+    "detailed_predictions": detailed_results[:50],
+    "training_config": CONFIG
+}
+
+# 读取现有结果或创建新列表
 if os.path.exists(results_file):
     with open(results_file, 'r', encoding='utf-8') as f:
-        existing_results = json.load(f)
-    existing_results.append(final_results)
-    final_results = existing_results
+        try:
+            results_list = json.load(f)
+            # 确保是列表格式
+            if not isinstance(results_list, list):
+                results_list = [results_list]
+        except:
+            results_list = []
+else:
+    results_list = []
 
+# 追加新结果
+results_list.append(new_result)
+
+# 保存
 with open(results_file, 'w', encoding='utf-8') as f:
-    json.dump(final_results, f, ensure_ascii=False, indent=2)
+    json.dump(results_list, f, ensure_ascii=False, indent=2)
 
 print(f"\n平均损失 (MSE): {avg_loss:.6f}")
 print(f"R² 分数: {r2:.4f}")
-print(f"\n评估结果已保存到: {results_file}")
-print(f"训练日志已保存到: {log_file}")
-print(f"Checkpoints保存在: {CONFIG['checkpoint_dir']}/")
+print(f"评估结果已保存到: {results_file} (总共 {len(results_list)} 次评估)")
+
+# 清理GPU缓存
+if torch.cuda.is_available():
+    torch.cuda.empty_cache()
+    print(f"\nGPU显存使用情况:")
+    print(f"  已分配: {torch.cuda.memory_allocated() / 1e9:.2f} GB")
+    print(f"  已缓存: {torch.cuda.memory_reserved() / 1e9:.2f} GB")

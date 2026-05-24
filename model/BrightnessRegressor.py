@@ -5,10 +5,21 @@ class BrightnessRegressor(nn.Module):
         super().__init__()
         self.network = nn.Sequential(
             # 第一层：降维
-            nn.Linear(input_dim, 512),
+            nn.Linear(input_dim, input_dim),
+            nn.LayerNorm(input_dim),
+            nn.GELU(),
+            nn.Dropout(0.2),
+
+            nn.Linear(input_dim, 1024),
+            nn.LayerNorm(1024),
+            nn.GELU(),
+            nn.Dropout(0.2),
+
+            nn.Linear(1024, 512),
             nn.LayerNorm(512),
             nn.GELU(),
             nn.Dropout(0.2),
+
 
             # 第二层：学习高阶特征
             nn.Linear(512, 256),
