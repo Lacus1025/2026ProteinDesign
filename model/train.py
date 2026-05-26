@@ -125,7 +125,7 @@ def evaluate_model(model, test_loader, criterion, device):
     return avg_loss, r2, predictions, true_values
 
 # 加载数据集
-dataset = GFP_Dataset("/data1/user/wuruiluo/protein_design/2026ProteinDesign/utils/gfp_dataset.json")
+dataset = GFP_Dataset("/data1/user/wuruiluo/protein_design/2026ProteinDesign/gfp_dataset.json")
 train_size = int(0.8 * len(dataset))
 val_size = int(0.1 * len(dataset))
 test_size = len(dataset) - train_size - val_size
@@ -153,8 +153,8 @@ CONFIG = {
     "input_dim": 1152,
     "learning_rate": 0.0001,
     "num_epochs": 2000,
-    "checkpoint_freq": 10,
-    "early_stopping_patience": 20,
+    "checkpoint_freq":30,
+    "early_stopping_patience": 100,
     "checkpoint_dir": "checkpoints",
     "log_file": "training_logs.json",
     "device": device.type
@@ -170,7 +170,7 @@ optimizer = optim.Adam(model.parameters(), lr=CONFIG["learning_rate"])
 
 # 可选：添加学习率调度器
 # scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=CONFIG["num_epochs"])
-    
+
 checkpoint_path = os.path.join(CONFIG["checkpoint_dir"], 'checkpoint.pth.tar')
 start_epoch, best_val_loss = load_checkpoint(checkpoint_path, model, optimizer)
 

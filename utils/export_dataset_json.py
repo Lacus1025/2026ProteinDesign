@@ -14,7 +14,7 @@ from esm_utils.esmc_embedding import ESM_embedding
 
 
 def export_dataset_json(output_path, batch=None):
-    df = pd.read_excel("../GFP_data.xlsx")
+    df = pd.read_excel("./GFP_data.xlsx")
 
     data = get_json_sequence(df, batch)
 
@@ -64,4 +64,4 @@ def export_dataset_json(output_path, batch=None):
 
 
 if __name__ == "__main__":
-    export_dataset_json("gfp_dataset.json",1000)
+    export_dataset_json("gfp_dataset.json")
