@@ -23,7 +23,7 @@ def export_dataset_json(output_path, batch=None):
 
     serializable_data = []
 
-    data = data
+    # data = data[]
     for item in tqdm(data, desc="Exporting dataset"):
         seq = item["sequence"]
 
@@ -64,4 +64,4 @@ def export_dataset_json(output_path, batch=None):
 
 
 if __name__ == "__main__":
-    export_dataset_json("gfp_dataset.json")
+    export_dataset_json("gfp_dataset.json",1000)
