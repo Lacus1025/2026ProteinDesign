@@ -14,7 +14,7 @@ from esm_utils.esmc_embedding import ESM_embedding
 
 
 def export_dataset_json(output_path, batch=None):
-    df = pd.read_excel("./GFP_data.xlsx")
+    df = pd.read_excel("../GFP_data.xlsx")
 
     data = get_json_sequence(df, batch)
 
@@ -23,17 +23,21 @@ def export_dataset_json(output_path, batch=None):
 
     serializable_data = []
 
-    data = data[:1000]
+    data = data
     for item in tqdm(data, desc="Exporting dataset"):
         seq = item["sequence"]
+
+        if len(seq) < 225 or len(seq) > 250:
+            continue
+
         emb = embedding_model.embedding_sequence(seq)
         if torch.is_tensor(emb):
             emb = emb.detach().cpu().numpy()
 
-        # 处理嵌入
-        emb = np.squeeze(emb, axis=0)  # 移除 batch 维度
-        emb = emb[1:-1]                # 剔除特殊 token
-        emb = emb.mean(axis=0)         # 平均池化
+        # # 处理嵌入
+        # emb = np.squeeze(emb, axis=0)  # 移除 batch 维度
+        # emb = emb[1:-1]                # 剔除特殊 token
+        # emb = emb.mean(axis=0)         # 平均池化
 
         all_embeddings.append(emb)
 

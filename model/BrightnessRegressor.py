@@ -1,42 +1,30 @@
 import torch.nn as nn
 
 class BrightnessRegressor(nn.Module):
-    def __init__(self, input_dim):
+    def __init__(self, input_dim=1152):
         super().__init__()
+        
         self.network = nn.Sequential(
-            # 第一层：降维
-            nn.Linear(input_dim, input_dim),
-            nn.LayerNorm(input_dim),
-            nn.GELU(),
-            nn.Dropout(0.2),
-
-            nn.Linear(input_dim, 1024),
-            nn.LayerNorm(1024),
-            nn.GELU(),
-            nn.Dropout(0.2),
-
-            nn.Linear(1024, 512),
+            # 第一层：漏斗式降维 (1152 -> 512)
+            nn.Linear(input_dim, 512),
             nn.LayerNorm(512),
             nn.GELU(),
-            nn.Dropout(0.2),
+            nn.Dropout(0.3),  # 第一层特征最多，加大一点 Dropout 防止死记硬背
 
-
-            # 第二层：学习高阶特征
-            nn.Linear(512, 256),
-            nn.LayerNorm(256),
+            # 第二层：特征浓缩 (512 -> 128)
+            nn.Linear(512, 128),
+            nn.LayerNorm(128),
             nn.GELU(),
             nn.Dropout(0.2),
 
-            # 第三层：精炼
-            nn.Linear(256, 128),
-            nn.LayerNorm(128),
+            # 第三层：高阶组合 (128 -> 32)
+            nn.Linear(128, 32),
+            nn.LayerNorm(32),
             nn.GELU(),
             nn.Dropout(0.1),
 
-            # 第四层：输出
-            nn.Linear(128, 64),
-            nn.GELU(),
-            nn.Linear(64, 1)
+            # 输出层
+            nn.Linear(32, 1)
         )
 
         self.proj = nn.Linear(input_dim, 1)
@@ -44,4 +32,6 @@ class BrightnessRegressor(nn.Module):
     def forward(self, x):
         main_out = self.network(x).squeeze(-1)
         res_out = self.proj(x).squeeze(-1)
+        
+        # 主网络(拟合复杂非线性) + 旁路网络(提供稳健线性基线)
         return main_out + res_out

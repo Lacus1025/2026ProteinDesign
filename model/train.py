@@ -2,7 +2,7 @@ import datetime
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+# from matlotlib import pyplot as plt
 import json
 import torch
 import torch.nn as nn
@@ -45,6 +45,7 @@ class GFP_Dataset(Dataset):
         embedding = self.embeddings[idx]
         embedding = torch.from_numpy(embedding)
         label = self.data[idx]["brightness"]
+        label = np.log1p(max(0,label))
         label = torch.tensor(label, dtype=torch.float32)
         return embedding, label
 
@@ -113,9 +114,10 @@ def evaluate_model(model, test_loader, criterion, device):
             outputs = model(data)
             loss = criterion(outputs, labels)
             total_loss += loss.item() * len(data)
-
-            predictions.extend(outputs.cpu().numpy())
-            true_values.extend(labels.cpu().numpy())
+            pred = np.expm1(outputs.cpu().numpy().flatten())
+            true = np.expm1(labels.cpu().numpy().flatten())
+            predictions.extend(pred)
+            true_values.extend(true)
 
     avg_loss = total_loss / len(test_loader.dataset)
     r2 = r2_score(true_values, predictions)
@@ -123,11 +125,12 @@ def evaluate_model(model, test_loader, criterion, device):
     return avg_loss, r2, predictions, true_values
 
 # 加载数据集
-dataset = GFP_Dataset("./gfp_dataset.json")
-train_size = int(0.9 * len(dataset))
-test_size = len(dataset) - train_size
-train_dataset, test_dataset = torch.utils.data.random_split(
-    dataset, [train_size, test_size],
+dataset = GFP_Dataset("/data1/user/wuruiluo/protein_design/2026ProteinDesign/utils/gfp_dataset.json")
+train_size = int(0.8 * len(dataset))
+val_size = int(0.1 * len(dataset))
+test_size = len(dataset) - train_size - val_size
+train_dataset, val_dataset, test_dataset = torch.utils.data.random_split(
+    dataset, [train_size, val_size, test_size],
     generator=torch.Generator().manual_seed(SEED)
 )
 
@@ -135,6 +138,8 @@ train_dataset, test_dataset = torch.utils.data.random_split(
 num_workers = 4 if device.type == 'cuda' else 0
 train_loader = DataLoader(train_dataset, batch_size=256, shuffle=True,
                          num_workers=num_workers, pin_memory=True if device.type == 'cuda' else False)
+val_loader = DataLoader(val_dataset, batch_size=256, shuffle=False,
+                       num_workers=num_workers, pin_memory=True if device.type == 'cuda' else False)
 test_loader = DataLoader(test_dataset, batch_size=256, shuffle=False,
                         num_workers=num_workers, pin_memory=True if device.type == 'cuda' else False)
 
@@ -149,7 +154,7 @@ CONFIG = {
     "learning_rate": 0.0001,
     "num_epochs": 2000,
     "checkpoint_freq": 10,
-    "early_stopping_patience": 200,
+    "early_stopping_patience": 20,
     "checkpoint_dir": "checkpoints",
     "log_file": "training_logs.json",
     "device": device.type
@@ -164,8 +169,8 @@ criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=CONFIG["learning_rate"])
 
 # 可选：添加学习率调度器
-# scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10)
-
+# scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=CONFIG["num_epochs"])
+    
 checkpoint_path = os.path.join(CONFIG["checkpoint_dir"], 'checkpoint.pth.tar')
 start_epoch, best_val_loss = load_checkpoint(checkpoint_path, model, optimizer)
 
@@ -206,7 +211,7 @@ for epoch in range(start_epoch, num_epochs):
     avg_train_loss = total_loss / len(train_loader)
 
     # 验证阶段
-    val_loss, val_r2, _, _ = evaluate_model(model, test_loader, criterion, device)
+    val_loss, val_r2, _, _ = evaluate_model(model, val_loader, criterion, device)
 
     # 学习率调度
     # scheduler.step(val_loss)
@@ -263,6 +268,11 @@ print(f"最终模型保存到 {final_model_path}")
 print("\n" + "="*50)
 print("最终模型评估")
 print("="*50)
+
+best_model_path = os.path.join(CONFIG["checkpoint_dir"], 'best_model.pth.tar')
+if os.path.exists(best_model_path):
+    print(f"加载最佳模型进行评估: {best_model_path}")
+    load_checkpoint(best_model_path, model)
 
 model.eval()
 total_loss = 0

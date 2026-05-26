@@ -3,7 +3,7 @@ import pandas as pd
 import re
 
 # 读取文件
-df = pd.read_excel('./GFP_data.xlsx')
+df = pd.read_excel('../GFP_data.xlsx')
 
 GFP_WT = {
     "sfGFP": {
