@@ -37,7 +37,7 @@ if torch.cuda.is_available():
 class GFP_Dataset(Dataset):
     def __init__(self, file):
         self.data = json.load(open(file))
-        embeddings_path = file.replace("_conv.json", "_embeddings_conv.npy")
+        embeddings_path = file.replace(".json", "_embeddings.npy")
         self.embeddings = np.load(embeddings_path).astype(np.float32)
 
     def __len__(self):
@@ -137,7 +137,7 @@ def evaluate_model(model, test_loader, criterion, device):
 
 # 加载数据集
 dataset = GFP_Dataset(
-    "/data1/user/wuruiluo/protein_design/2026ProteinDesign/gfp_dataset_conv.json"
+    "/data1/user/wuruiluo/protein_design/2026ProteinDesign/gfp_dataset.json"
 )
 train_size = int(0.8 * len(dataset))
 val_size = int(0.1 * len(dataset))
@@ -180,7 +180,7 @@ from model.BrightnessRegressor import BrightnessRegressor
 
 CONFIG = {
     "seq_len": 250,
-    "embed_dim": 1152,
+    "embed_dim": 2560,
     "learning_rate": 0.00001,
     "num_epochs": 2000,
     "checkpoint_freq": 30,

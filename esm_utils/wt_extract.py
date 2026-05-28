@@ -16,7 +16,7 @@ def build_wt_dict():
     wt_dict = {}
 
     for gfp_name, sequence in GFP_WT.items():
-        # 提取 [500, 1152] 的 numpy 数组
+        # 提取 [250, 2560] 的 numpy 数组
         emb_numpy = embedding_model.embedding_sequence(sequence)
         # 转为 PyTorch Tensor
         wt_dict[gfp_name] = torch.from_numpy(emb_numpy).float()

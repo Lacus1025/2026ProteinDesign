@@ -2,11 +2,11 @@ import torch.nn as nn
 
 
 class BrightnessRegressor(nn.Module):
-    def __init__(self, seq_len=250, embed_dim=1152):
+    def __init__(self, seq_len=250, embed_dim=2560):
         super().__init__()
 
         self.conv_net = nn.Sequential(
-            # [batch, 1152, 250] -> [batch, 512, 125]
+            # [batch, 2560, 250] -> [batch, 512, 125]
             nn.Conv1d(embed_dim, 512, kernel_size=5, stride=2, padding=2),
             nn.BatchNorm1d(512),
             nn.GELU(),

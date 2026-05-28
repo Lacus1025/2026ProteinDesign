@@ -15,7 +15,7 @@ class EVAL:
         self.embedding = ESM_embedding()
 
         checkpoint = torch.load(model_path, map_location=device, weights_only=False)
-        self.model = BrightnessRegressor(seq_len=250, embed_dim=1152)
+        self.model = BrightnessRegressor(seq_len=250, embed_dim=2560)
 
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
             self.model.load_state_dict(checkpoint["model_state_dict"])
@@ -31,15 +31,15 @@ class EVAL:
     def _process_embedding(self, emb):
         if torch.is_tensor(emb):
             emb = emb.detach().cpu().numpy()
-        # embedding_sequence 返回 [500, 1152]，保留完整序列维度
+        # embedding_sequence 返回 [250, 2560]，保留完整序列维度
         return emb.astype(np.float32)
 
     def predict(self, seq):
         with torch.no_grad():
             emb = self.embedding.embedding_sequence(seq)
             emb = self._process_embedding(emb)
-            # [500, 1152] -> [1, 500, 1152]
-            data = torch.from_numpy(emb).float().unsqueeze(0).to(self.device)
+            # [250, 2560] -> [1, 250, 2560]
+            data = torch.from_numpy(emb).unsqueeze(0).to(self.device)
             output = self.model(data)
             return output.item()
 
@@ -47,7 +47,7 @@ class EVAL:
 if __name__ == "__main__":
     model_file = "model_final.pth" if os.path.exists("model_final.pth") else "model.pth"
     eval_model = EVAL(model_file)
-    test_seq = "MTALTEGAKLFEKEIPYITELEGDVEGMKFIIKGEGTGDATTGTIKAKYICTTGDLPVPWATILSSLSYGVFCFAKYPRHIADFFKSTQPDGYSQDRIISFDNDGQYDVKAKVTYENGTLYNRVTVKGTGFKSNGNILGMRVLYHSPPHAVYILPDRKNGGMKIEYNKAFDVMGGGHQMARHAQFNKPLGAWEEDYPLYHHLTVWTSFGKDPDDDETDHLTIVEVIKAVDLETYR"
+    test_seq = "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTLSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK"
     result = eval_model.predict(test_seq)
     print(f"序列: {test_seq}")
     print(f"预测亮度: {result:.4f}")
