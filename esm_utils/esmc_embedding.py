@@ -75,39 +75,49 @@ import torch
 from esm.models.esmc import ESMC
 from esm.sdk.api import ESMProtein, LogitsConfig
 
-class ESM_embedding():
+SEQUENCE_LEN = 250
+
+
+class ESM_embedding:
     def __init__(self):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = ESMC.from_pretrained("esmc_600m").to(self.device)
-        self.model.eval() # 务必加上 eval()，关闭 Dropout 保证特征稳定
+        self.model.eval()
 
     def _create_protein(self, sequence):
         return ESMProtein(sequence=sequence)
 
-    @torch.no_grad() # 提取特征绝对不需要计算梯度，极大节省显存和加速
+    @staticmethod
+    def _pad_embeddings(embeddings, target_length):
+        current_length = embeddings.shape[0]
+        embedding_dim = embeddings.shape[1]
+
+        if current_length >= target_length:
+            padded = embeddings[:target_length, :]
+        else:
+            padding_size = target_length - current_length
+            padding = torch.zeros(padding_size, embedding_dim, device=embeddings.device)
+            padded = torch.cat([embeddings, padding], dim=0)
+        return padded
+
+    @torch.no_grad()
     def embedding_sequence(self, sequence):
-        """返回序列的全局平均 Embedding 张量 (维度: 1152)"""
+        """返回固定长度的 per-token Embedding 张量 [500, 1152]（无 pooling）"""
         protein = self._create_protein(sequence)
         encoded = self.model.encode(protein)
-        
+
         result = self.model.logits(
-            encoded,
-            LogitsConfig(sequence=True, return_embeddings=True)
+            encoded, LogitsConfig(sequence=True, return_embeddings=True)
         )
 
-        if hasattr(result, 'embeddings'):
+        if hasattr(result, "embeddings"):
             embeddings = result.embeddings
-        elif hasattr(result, 'logits') and hasattr(result.logits, 'embeddings'):
+        elif hasattr(result, "logits") and hasattr(result.logits, "embeddings"):
             embeddings = result.logits.embeddings
         else:
             raise ValueError(f"Result structure unknown: {dir(result)}")
 
-        # 此时 embeddings 的形状通常是 [1, seq_len, 1152]
-        embeddings = embeddings.squeeze(0) # 变成 [seq_len, 1152]
+        embeddings = embeddings.squeeze(0)
+        embeddings = self._pad_embeddings(embeddings, SEQUENCE_LEN)
 
-        # 【核心操作】：Mean Pooling (平均池化)
-        # 将整条蛋白沿长度维度取平均，浓缩为一个包含全局信息的 1152 维向量
-        pooled_embedding = torch.mean(embeddings, dim=0) 
-        
-        # 返回标准的 numpy 一维数组，形状为 (1152,)
-        return pooled_embedding.cpu().numpy()
+        return embeddings.cpu().numpy()

@@ -34,11 +34,6 @@ def export_dataset_json(output_path, batch=None):
         if torch.is_tensor(emb):
             emb = emb.detach().cpu().numpy()
 
-        # # 处理嵌入
-        # emb = np.squeeze(emb, axis=0)  # 移除 batch 维度
-        # emb = emb[1:-1]                # 剔除特殊 token
-        # emb = emb.mean(axis=0)         # 平均池化
-
         all_embeddings.append(emb)
 
         serializable_data.append(
@@ -64,4 +59,4 @@ def export_dataset_json(output_path, batch=None):
 
 
 if __name__ == "__main__":
-    export_dataset_json("gfp_dataset.json")
+    export_dataset_json("gfp_dataset.json",1000)
