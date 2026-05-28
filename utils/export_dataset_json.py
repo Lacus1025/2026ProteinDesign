@@ -26,16 +26,18 @@ def export_dataset_json(output_path, batch=None):
     # data = data[]
     for item in tqdm(data, desc="Exporting dataset"):
         seq = item["sequence"]
+
+        if len(seq) < 225 or len(seq) > 250:
+            continue
+
         emb = embedding_model.embedding_sequence(seq)
         if torch.is_tensor(emb):
             emb = emb.detach().cpu().numpy()
 
-        # 处理嵌入
-        emb = np.squeeze(emb, axis=0)  # 移除 batch 维度
+        # # 处理嵌入
+        # emb = np.squeeze(emb, axis=0)  # 移除 batch 维度
         # emb = emb[1:-1]                # 剔除特殊 token
         # emb = emb.mean(axis=0)         # 平均池化
-
-        print(emb.shape)
 
         all_embeddings.append(emb)
 
@@ -62,4 +64,4 @@ def export_dataset_json(output_path, batch=None):
 
 
 if __name__ == "__main__":
-    export_dataset_json("gfp_dataset.json",1000)
+    export_dataset_json("gfp_dataset.json")
