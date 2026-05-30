@@ -9,8 +9,7 @@ class ESM_embedding:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = AutoModelForMaskedLM.from_pretrained(
             "Biohub/ESMC-6B",
-            device_map="auto",
-        ).eval()
+        ).to(self.device).eval()
         self.tokenizer = AutoTokenizer.from_pretrained("Biohub/ESMC-6B")
 
     @staticmethod

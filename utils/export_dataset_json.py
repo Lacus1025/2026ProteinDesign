@@ -59,4 +59,5 @@ def export_dataset_json(output_path, batch=None):
 
 
 if __name__ == "__main__":
-    export_dataset_json("gfp_dataset.json",1000)
+    # export_dataset_json("gfp_dataset.json",1000)
+    export_dataset_json("gfp_dataset.json")
