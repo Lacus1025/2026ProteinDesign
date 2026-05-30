@@ -5,5 +5,3 @@ esm
 numpy
 scikit-learn
 tqdm
-python==3.12
-transformer

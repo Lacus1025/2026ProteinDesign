@@ -1,9 +1,9 @@
+import bisect
 import datetime
 import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# from matlotlib import pyplot as plt
 import json
 import torch
 import torch.nn as nn
@@ -11,7 +11,6 @@ import torch.optim as optim
 import numpy as np
 from torch.utils.data import Dataset, DataLoader
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 import shutil
 
@@ -36,15 +35,50 @@ if torch.cuda.is_available():
 
 class GFP_Dataset(Dataset):
     def __init__(self, file):
-        self.data = json.load(open(file))
-        embeddings_path = file.replace(".json", "_embeddings.npy")
-        self.embeddings = np.load(embeddings_path).astype(np.float32)
+        manifest_path = file.replace(".json", "_shards.json")
+        if os.path.exists(manifest_path):
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                manifest = json.load(f)
+
+            self.data = []
+            for shard in manifest["shards"]:
+                shard_json = os.path.join(os.path.dirname(file), shard["json"])
+                with open(shard_json, "r", encoding="utf-8") as f:
+                    self.data.extend(json.load(f))
+
+            self._shards_info = manifest["shards"]
+            self._mmaps = None
+            self._base_dir = os.path.dirname(file)
+
+            self._shard_offsets = [0]
+            for shard in self._shards_info:
+                self._shard_offsets.append(self._shard_offsets[-1] + shard["count"])
+        else:
+            self.data = json.load(open(file))
+            embeddings_path = file.replace(".json", "_embeddings.npy")
+            self.embeddings = np.load(embeddings_path).astype(np.float32)
+            self._shards_info = None
+
+    def _init_mmaps(self):
+        if self._mmaps is None and self._shards_info is not None:
+            self._mmaps = []
+            for shard in self._shards_info:
+                shard_npy = os.path.join(self._base_dir, shard["npy"])
+                mmap = np.load(shard_npy, mmap_mode="r")
+                self._mmaps.append(mmap)
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        embedding = self.embeddings[idx]
+        if self._shards_info is not None:
+            self._init_mmaps()
+            shard_idx = bisect.bisect_right(self._shard_offsets, idx) - 1
+            local_idx = idx - self._shard_offsets[shard_idx]
+            embedding = self._mmaps[shard_idx][local_idx].astype(np.float32)
+        else:
+            embedding = self.embeddings[idx]
+
         embedding = torch.from_numpy(embedding)
         label = self.data[idx]["brightness"]
         label = np.log1p(max(0, label))
@@ -179,19 +213,18 @@ print(f"测试集大小: {len(test_dataset)}")
 from model.BrightnessRegressor import BrightnessRegressor
 
 CONFIG = {
-    "seq_len": 250,
     "embed_dim": 2560,
-        "learning_rate": 0.0001,
+    "learning_rate": 0.0001,
     "num_epochs": 2000,
     "checkpoint_freq": 30,
-        "early_stopping_patience": 50,
+    "early_stopping_patience": 50,
     "checkpoint_dir": "checkpoints",
     "log_file": "training_logs.json",
     "device": device.type,
 }
 
 # 创建模型并移动到GPU
-model = BrightnessRegressor(seq_len=CONFIG["seq_len"], embed_dim=CONFIG["embed_dim"])
+model = BrightnessRegressor(embed_dim=CONFIG["embed_dim"])
 model = model.to(device)
 print(f"模型参数量: {sum(p.numel() for p in model.parameters()):,}")
 
@@ -200,7 +233,7 @@ optimizer = optim.Adam(model.parameters(), lr=CONFIG["learning_rate"])
 
 # 可选：添加学习率调度器
 scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer, mode='min', factor=0.5, patience=10
+    optimizer, mode="min", factor=0.5, patience=10
 )
 
 checkpoint_path = os.path.join(CONFIG["checkpoint_dir"], "checkpoint.pth.tar")

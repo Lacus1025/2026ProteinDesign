@@ -1,14 +1,14 @@
 # 2026ProteinDesign — GFP 荧光亮度预测与进化优化
 
-基于 ESM 蛋白语言模型嵌入 + 卷积神经网络回归预测 GFP 荧光亮度，并结合 ESM3 掩码语言模型进行进化优化，设计更高亮度的 GFP 蛋白变体。合成生物学竞赛项目。
+基于 ESM 蛋白语言模型嵌入 + CNN 回归预测 GFP 荧光亮度，并结合 ESM3 掩码语言模型进行进化优化，设计更高亮度的 GFP 蛋白变体。合成生物学竞赛项目。
 
 ## 整体流程
 
 ```
                     阶段一: 监督学习 (训练亮度预测器)
 ┌──────────────┐     ┌─────────────────┐     ┌──────────────────┐
-│ GFP_data.xlsx│ ──> │ ESM-3B 嵌入     │ ──> │ Conv1D Regressor │ ──> model_final.pth
-│ (14w+ 突变体) │     │ + 数据集导出     │     │ (MSE + Δlog1p)   │
+│ GFP_data.xlsx│ ──> │ ESMC-6B 嵌入    │ ──> │ CNN Regressor   │ ──> model_final.pth
+│ (14w+ 突变体) │     │ + 分片导出       │     │ (MSE + log1p)    │
 └──────────────┘     └─────────────────┘     └──────────────────┘
 
                     阶段二: 进化优化 (生成更亮 GFP)
@@ -23,11 +23,8 @@
 ## 环境配置
 
 ```bash
-# 创建并激活 conda 环境
 conda create -n esm python=3.12
 conda activate esm
-
-# 安装依赖
 pip install -r requirements.txt
 ```
 
@@ -38,8 +35,7 @@ pip install -r requirements.txt
 | torch | 深度学习框架 |
 | numpy | 数值计算 |
 | scikit-learn | 数据集划分与 R² 评估 |
-| esm | ESM 蛋白语言模型（OpenFold/ESMC） |
-| transformers | HuggingFace 模型加载 |
+| transformers | HuggingFace 模型加载 (ESMC-6B) |
 | pandas / openpyxl | 读取 Excel 数据 |
 | tqdm | 进度条 |
 
@@ -51,9 +47,12 @@ pip install -r requirements.txt
 python utils/export_dataset_json.py
 ```
 
+> **14 万条数据采用分片导出**，避免大数据量卡死。每 1000 条记录为一个分片，ESM 嵌入在存储前做平均池化（`250×2560 → 2560`），大幅降低存储占用（~341 GB → ~1.37 GB）。
+
 输出文件：
-- `gfp_dataset.json` — 序列与亮度标注
-- `gfp_dataset_embeddings.npy` — 预计算的 ESM 嵌入 `[N, 250, 2560]`
+- `gfp_dataset_shard_000.json` … `_shard_NNN.json` — 各分片序列与亮度标注
+- `gfp_dataset_shard_000_embeddings.npy` … `_shard_NNN_embeddings.npy` — 各分片池化嵌入 `[1000, 2560]`
+- `gfp_dataset_shards.json` — 分片清单（总记录数、分片数、路径映射）
 
 ## 训练
 
@@ -62,12 +61,13 @@ python model/train.py
 ```
 
 训练配置（`model/train.py` 内）：
-- 模型: `BrightnessRegressor` — 3 层 Conv1D + 4 层 MLP
-- 输入: 每残基 2560 维 ESM 嵌入 × 250 序列长度
-- 损失: MSE（对 log1p 变换后的亮度值）
-- 优化器: Adam, lr=1e-5
+- 模型: `BrightnessRegressor` — 3 层 Conv1d + 2 层 FC
+- 输入: 平均池化后的 2560 维 ESM 嵌入（`[N, 2560]`）
+- 损失: MSE（对 `log1p` 变换后的亮度值）
+- 优化器: Adam, lr=1e-4, ReduceLROnPlateau 调度
 - 数据划分: 80/10/10 (train/val/test)，seed=114514
-- 早停: patience=20，梯度裁剪 max_norm=1.0
+- 早停: patience=50，梯度裁剪 max_norm=1.0
+- 分片数据集通过 `np.load(mmap_mode='r')` 延迟加载，内存友好
 - 输出: `model_final.pth`, `evaluation_results.json`, `training_logs.json`
 
 ## 评估
@@ -130,7 +130,7 @@ bash run.sh
 ├── requirements.txt                     # Python 依赖
 ├── GFP_data.xlsx                        # 原始突变体数据
 ├── model/
-│   ├── BrightnessRegressor.py           # Conv1D 回归模型定义
+│   ├── BrightnessRegressor.py           # CNN 回归模型定义
 │   ├── train.py                         # 训练脚本
 │   └── eval.py                          # 推理封装类
 ├── esm_utils/
@@ -139,7 +139,7 @@ bash run.sh
 │   ├── esmfold2_generate.py             # ESMFold2 结构预测（独立工具）
 │   └── wt_extract.py                    # 野生型嵌入提取
 ├── utils/
-│   ├── export_dataset_json.py           # Excel → JSON + 嵌入
+│   ├── export_dataset_json.py           # Excel → 分片 JSON + 嵌入（池化）
 │   └── convert_gfp_data.py              # 突变解析与序列构建
 └── checkpoints/                         # 训练检查点
 ```
@@ -149,13 +149,12 @@ bash run.sh
 ### 模型架构
 
 ```
-Input: [batch, 250, 2560]
-  → permute → [batch, 2560, 250]
-  → Conv1d(2560→512, k=5, s=2) → BN → GELU → Dropout(0.3)
-  → Conv1d(512→256,  k=5, s=2) → BN → GELU → Dropout(0.2)
-  → Conv1d(256→128,  k=3, s=2) → BN → GELU → Dropout(0.2)
-  → Flatten → [batch, 4096]
-  → Linear(4096→1024→512→256→1)
+Input: [batch, 2560] (平均池化后的 ESM 嵌入)
+  → unsqueeze → [batch, 1, 2560]
+  → Conv1d(1→32, k=7)  → BN → GELU → MaxPool1d(2) → [batch, 32, 1280]
+  → Conv1d(32→64, k=5) → BN → GELU → MaxPool1d(2) → [batch, 64, 640]
+  → Conv1d(64→128,k=3) → BN → GELU → AdaptiveAvgPool1d(1) → [batch, 128]
+  → Linear(128→64) → GELU → Dropout(0.1) → Linear(64→1)
 Output: [batch] (预测亮度, log1p 空间)
 ```
 
@@ -163,5 +162,5 @@ Output: [batch] (预测亮度, log1p 空间)
 
 - 训练数据来自 5 种野生型 GFP（sfGFP, avGFP, amacGFP, cgreGFP, ppluGFP）及其突变体，共 14w+ 条
 - 亮度值经过 `log1p` 变换后作为回归目标，取值约 1.3 ~ 3.8
-- 序列统一补齐/截断至长度 250
-- 使用 ESMC-6B 模型提取每残基 2560 维嵌入
+- 使用 ESMC-6B 模型提取每残基 2560 维嵌入，在存储前做平均池化压缩为单向量
+- 序列过滤条件：长度 225~250（超出范围的直接丢弃）

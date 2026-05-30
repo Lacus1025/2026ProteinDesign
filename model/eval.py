@@ -15,7 +15,7 @@ class EVAL:
         self.embedding = ESM_embedding()
 
         checkpoint = torch.load(model_path, map_location=device, weights_only=False)
-        self.model = BrightnessRegressor(seq_len=250, embed_dim=2560)
+        self.model = BrightnessRegressor(embed_dim=2560)
 
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
             self.model.load_state_dict(checkpoint["model_state_dict"])
@@ -38,7 +38,7 @@ class EVAL:
         with torch.no_grad():
             emb = self.embedding.embedding_sequence(seq)
             emb = self._process_embedding(emb)
-            # [250, 2560] -> [1, 250, 2560]
+            emb = emb.mean(axis=0)
             data = torch.from_numpy(emb).unsqueeze(0).to(self.device)
             output = self.model(data)
             return output.item()

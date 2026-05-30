@@ -3,58 +3,35 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-class AttentionPool1d(nn.Module):
-    def __init__(self, embed_dim, num_heads=8, head_dim=64):
-        super().__init__()
-        self.num_heads = num_heads
-        self.head_dim = head_dim
-        self.attn = nn.Linear(embed_dim, num_heads)
-        self.value = nn.Linear(embed_dim, num_heads * head_dim)
-
-    def forward(self, x):
-        # x: [batch, seq_len, embed_dim]
-        batch, seq_len, _ = x.shape
-
-        attn = self.attn(x)                              # [batch, seq_len, num_heads]
-        attn = attn.permute(0, 2, 1)                     # [batch, num_heads, seq_len]
-        attn = F.softmax(attn, dim=-1)
-
-        v = self.value(x)                                 # [batch, seq_len, num_heads*head_dim]
-        v = v.view(batch, seq_len, self.num_heads, self.head_dim)
-        v = v.permute(0, 2, 1, 3)                        # [batch, num_heads, seq_len, head_dim]
-
-        out = torch.einsum("bhs,bhsd->bhd", attn, v)     # [batch, num_heads, head_dim]
-        out = out.flatten(1)                              # [batch, num_heads*head_dim]
-        return out
-
-
 class BrightnessRegressor(nn.Module):
-    def __init__(self, seq_len=250, embed_dim=2560, num_heads=8, head_dim=64):
+    def __init__(self, embed_dim=2560):
         super().__init__()
 
-        self.attn_pool = AttentionPool1d(embed_dim, num_heads, head_dim)
-        pool_dim = num_heads * head_dim
-
-        self.fc = nn.Sequential(
-            nn.Linear(pool_dim, 512),
-            nn.BatchNorm1d(512),
+        self.conv = nn.Sequential(
+            nn.Conv1d(1, 32, kernel_size=7, padding=3),
+            nn.BatchNorm1d(32),
             nn.GELU(),
-            nn.Dropout(0.1),
-            nn.Linear(512, 256),
-            nn.BatchNorm1d(256),
+            nn.MaxPool1d(2),
+            nn.Conv1d(32, 64, kernel_size=5, padding=2),
+            nn.BatchNorm1d(64),
             nn.GELU(),
-            nn.Dropout(0.1),
-            nn.Linear(256, 128),
+            nn.MaxPool1d(2),
+            nn.Conv1d(64, 128, kernel_size=3, padding=1),
             nn.BatchNorm1d(128),
             nn.GELU(),
-            nn.Linear(128, 1),
+            nn.AdaptiveAvgPool1d(1),
         )
 
-        self.proj = nn.Linear(embed_dim, 1)
+        self.fc = nn.Sequential(
+            nn.Linear(128, 64),
+            nn.GELU(),
+            nn.Dropout(0.1),
+            nn.Linear(64, 1),
+        )
 
     def forward(self, x):
-        # x: [batch, seq_len, embed_dim]
-        main_out = self.attn_pool(x)          # [batch, pool_dim]
-        main_out = self.fc(main_out).squeeze(-1)
-        res_out = self.proj(x.mean(dim=1)).squeeze(-1)
-        return main_out + res_out
+        x = x.unsqueeze(1)
+        x = self.conv(x)
+        x = x.squeeze(-1)
+        x = self.fc(x).squeeze(-1)
+        return x
