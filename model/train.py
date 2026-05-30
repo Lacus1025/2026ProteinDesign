@@ -181,10 +181,10 @@ from model.BrightnessRegressor import BrightnessRegressor
 CONFIG = {
     "seq_len": 250,
     "embed_dim": 2560,
-    "learning_rate": 0.00001,
+        "learning_rate": 0.0001,
     "num_epochs": 2000,
     "checkpoint_freq": 30,
-    "early_stopping_patience": 20,
+        "early_stopping_patience": 50,
     "checkpoint_dir": "checkpoints",
     "log_file": "training_logs.json",
     "device": device.type,
@@ -199,7 +199,9 @@ criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=CONFIG["learning_rate"])
 
 # 可选：添加学习率调度器
-# scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=CONFIG["num_epochs"])
+scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+    optimizer, mode='min', factor=0.5, patience=10
+)
 
 checkpoint_path = os.path.join(CONFIG["checkpoint_dir"], "checkpoint.pth.tar")
 start_epoch, best_val_loss = load_checkpoint(checkpoint_path, model, optimizer)
@@ -244,7 +246,7 @@ for epoch in range(start_epoch, num_epochs):
     val_loss, val_r2, _, _ = evaluate_model(model, val_loader, criterion, device)
 
     # 学习率调度
-    # scheduler.step(val_loss)
+    scheduler.step(val_loss)
 
     # 打印训练信息
     current_lr = optimizer.param_groups[0]["lr"]
