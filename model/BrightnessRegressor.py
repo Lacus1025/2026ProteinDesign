@@ -2,37 +2,47 @@ import torch
 import torch.nn as nn
 
 
+class ResidualBlock(nn.Module):
+    def __init__(self, in_dim: int, out_dim: int, dropout: float = 0.0):
+        super().__init__()
+
+        self.linear = nn.Linear(in_dim, out_dim)
+        self.bn = nn.BatchNorm1d(out_dim)
+        self.gelu = nn.GELU()
+        self.dropout = nn.Dropout(dropout) if dropout > 0 else nn.Identity()
+        self.shortcut = nn.Linear(in_dim, out_dim) if in_dim != out_dim else nn.Identity()
+
+    def forward(self, x):
+        residual = self.shortcut(x)
+        out = self.linear(x)
+        out = self.bn(out)
+        out = self.gelu(out)
+        out = self.dropout(out)
+        return out + residual
+
+
 class BrightnessRegressor(nn.Module):
     def __init__(self, embed_dim=2560):
         super().__init__()
 
-        self.mlp = nn.Sequential(
+        self.input_proj = nn.Sequential(
             nn.Linear(embed_dim, 1024),
             nn.BatchNorm1d(1024),
             nn.GELU(),
             nn.Dropout(0.3),
-
-            nn.Linear(1024, 512),
-            nn.BatchNorm1d(512),
-            nn.GELU(),
-            nn.Dropout(0.2),
-
-            nn.Linear(512, 256),
-            nn.BatchNorm1d(256),
-            nn.GELU(),
-            nn.Dropout(0.1),
-
-            nn.Linear(256, 128),
-            nn.BatchNorm1d(128),
-            nn.GELU(),
-            nn.Dropout(0.1),
-
-            nn.Linear(128, 64),
-            nn.BatchNorm1d(64),
-            nn.GELU(),
-
-            nn.Linear(64, 1),
         )
 
+        self.resblock1 = ResidualBlock(1024, 512, dropout=0.2)
+        self.resblock2 = ResidualBlock(512, 256, dropout=0.1)
+        self.resblock3 = ResidualBlock(256, 128, dropout=0.1)
+        self.resblock4 = ResidualBlock(128, 64)
+
+        self.output_proj = nn.Linear(64, 1)
+
     def forward(self, x):
-        return self.mlp(x).squeeze(-1)
+        x = self.input_proj(x)
+        x = self.resblock1(x)
+        x = self.resblock2(x)
+        x = self.resblock3(x)
+        x = self.resblock4(x)
+        return self.output_proj(x).squeeze(-1)
