@@ -329,6 +329,52 @@ for epoch in range(start_epoch, num_epochs):
             is_checkpoint=True,
         )
 
+        # 在测试集上评估当前checkpoint，随机输出100条结果
+        model.eval()
+        checkpoint_loss = 0
+        checkpoint_preds = []
+        checkpoint_trues = []
+        checkpoint_details = []
+
+        with torch.no_grad():
+            for data, labels in test_loader:
+                data, labels = data.to(device), labels.to(device)
+                outputs = model(data)
+                loss = criterion(outputs, labels)
+                checkpoint_loss += loss.item() * len(data)
+
+                outputs_cpu = outputs.cpu()
+                labels_cpu = labels.cpu()
+
+                for i in range(len(outputs_cpu)):
+                    p = float(np.expm1(outputs_cpu[i].item()))
+                    t = float(np.expm1(labels_cpu[i].item()))
+                    checkpoint_preds.append(p)
+                    checkpoint_trues.append(t)
+
+                    if t != 0:
+                        rel_err = (p - t) / t
+                        rel_sq = rel_err ** 2
+                    else:
+                        rel_sq = (p - t) ** 2
+
+                    checkpoint_details.append({
+                        "pred": p,
+                        "true": t,
+                        "err": p - t,
+                        "rel_sq": rel_sq,
+                    })
+
+        avg_ckpt_loss = checkpoint_loss / len(test_dataset)
+        ckpt_r2 = r2_score(checkpoint_trues, checkpoint_preds)
+        print(f"  -> Checkpoint Test Loss: {avg_ckpt_loss:.6f}, R2: {ckpt_r2:.4f}")
+
+        num_print = min(100, len(checkpoint_details))
+        sample_idx = np.random.choice(len(checkpoint_details), num_print, replace=False)
+        for idx in sample_idx:
+            r = checkpoint_details[idx]
+            print(f"predicted:{r['pred']:.4f}  labels:{r['true']:.4f}    error:{r['err']:.4f}    loss:{r['rel_sq']:.6f}")
+
     # 早停检查
     if patience_counter >= early_stopping_patience:
         print(f"早停触发！在epoch {epoch + 1} 停止训练")
@@ -375,8 +421,8 @@ with torch.no_grad():
         labels_cpu = labels.cpu()
 
         for i in range(len(outputs_cpu)):
-            pred = outputs_cpu[i].item()
-            true = labels_cpu[i].item()
+            pred = float(np.expm1(outputs_cpu[i].item()))
+            true = float(np.expm1(labels_cpu[i].item()))
             all_predictions.append(pred)
             all_labels.append(true)
 
@@ -388,6 +434,8 @@ with torch.no_grad():
 
             detailed_results.append(
                 {
+                    "predicted_raw": pred,
+                    "true_raw": true,
                     "predicted": round(pred, 4),
                     "true_value": round(true, 4),
                     "absolute_error": round(pred - true, 4),
@@ -395,11 +443,12 @@ with torch.no_grad():
                 }
             )
 
-            # 只打印前100个结果避免输出过多
-            if len(detailed_results) <= 100:
-                print(
-                    f"predicted:{pred:.4f}  labels:{true:.4f}    error:{pred - true:.4f}    loss:{rel_error_sq:.6f}"
-                )
+# 随机输出100条结果
+num_to_print = min(100, len(detailed_results))
+sample_indices = np.random.choice(len(detailed_results), num_to_print, replace=False)
+for i in sample_indices:
+    r = detailed_results[i]
+    print(f"predicted:{r['predicted_raw']:.4f}  labels:{r['true_raw']:.4f}    error:{r['predicted_raw'] - r['true_raw']:.4f}    loss:{r['relative_error_squared']:.6f}")
 
 avg_loss = total_loss / len(test_loader.dataset)
 r2 = r2_score(all_labels, all_predictions)

@@ -41,7 +41,7 @@ class EVAL:
             emb = emb.mean(axis=0)
             data = torch.from_numpy(emb).unsqueeze(0).to(self.device)
             output = self.model(data)
-            return output.item()
+            return float(np.expm1(output.item()))
 
 
 if __name__ == "__main__":
