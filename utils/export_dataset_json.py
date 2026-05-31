@@ -13,84 +13,104 @@ from utils.convert_gfp_data import get_json_sequence
 from esm_utils.esmc_embedding import ESM_embedding
 
 
+def _write_shard(shard_idx, records, embeddings, base, embed_dim):
+    shard_count = len(records)
+    shard_json_path = f"{base}_shard_{shard_idx:03d}.json"
+    shard_npy_path = f"{base}_shard_{shard_idx:03d}_embeddings.npy"
+    raw_path = shard_npy_path + ".raw"
+
+    mmap = np.memmap(
+        raw_path, dtype="float32", mode="w+", shape=(shard_count, embed_dim)
+    )
+    stacked = np.stack(embeddings, axis=0)
+    mmap[:] = stacked
+    mmap.flush()
+    del mmap
+
+    with open(shard_json_path, "w", encoding="utf-8") as f:
+        json.dump(records, f, ensure_ascii=False, indent=2)
+
+    raw = np.memmap(
+        raw_path, dtype="float32", mode="r", shape=(shard_count, embed_dim)
+    )
+    np.save(shard_npy_path, np.array(raw))
+    os.remove(raw_path)
+    del raw
+
+    print(f"  Shard {shard_idx}: {shard_count} records → {shard_json_path}")
+
+    return {
+        "shard": shard_idx,
+        "json": os.path.basename(shard_json_path),
+        "npy": os.path.basename(shard_npy_path),
+        "count": shard_count,
+    }
+
+
 def export_dataset_json(output_path, batch=None, chunk_size=1000, shard_size=1000):
     df = pd.read_excel("./GFP_data.xlsx")
 
     data = get_json_sequence(df, batch)
-
-    valid_data = [item for item in data if 225 <= len(item["sequence"]) <= 250]
-    total = len(valid_data)
-    print(f"有效序列数: {total}")
+    print(f"原始序列数: {len(data)}")
 
     embedding_model = ESM_embedding()
 
     embed_dim = 2560
     base = output_path.replace(".json", "").rstrip("_")
-    num_shards = (total + shard_size - 1) // shard_size
+
+    total = 0
+    shard_idx = 0
     shard_list = []
+    records_buffer = []
+    embeddings_buffer = []
 
-    for shard_idx in range(num_shards):
-        start = shard_idx * shard_size
-        end = min(start + shard_size, total)
-        shard_data = valid_data[start:end]
-        shard_count = len(shard_data)
+    total_chunks = (len(data) + chunk_size - 1) // chunk_size
 
-        shard_json_path = f"{base}_shard_{shard_idx:03d}.json"
-        shard_npy_path = f"{base}_shard_{shard_idx:03d}_embeddings.npy"
-        raw_path = shard_npy_path + ".raw"
-        mmap = np.memmap(
-            raw_path, dtype="float32", mode="w+", shape=(shard_count, embed_dim)
-        )
+    for chunk_start in tqdm(range(0, len(data), chunk_size), total=total_chunks, desc="Processing chunks"):
+        chunk_end = min(chunk_start + chunk_size, len(data))
+        chunk = data[chunk_start:chunk_end]
 
-        with open(shard_json_path, "w", encoding="utf-8") as f:
-            f.write("[\n")
-            for local_i, item in enumerate(
-                tqdm(shard_data, desc=f"Shard {shard_idx}", leave=False)
-            ):
-                seq = item["sequence"]
+        for item in chunk:
+            seq = item["sequence"]
+            if not (225 <= len(seq) <= 250):
+                continue
 
-                emb = embedding_model.embedding_sequence(seq)
-                if torch.is_tensor(emb):
-                    emb = emb.detach().cpu().numpy()
-                emb = emb.mean(axis=0).astype(np.float32)
-                mmap[local_i] = emb
+            emb = embedding_model.embedding_sequence(seq)
+            if torch.is_tensor(emb):
+                emb = emb.detach().cpu().numpy()
+            emb = emb.mean(axis=0).astype(np.float32)
 
-                record = {
-                    "index": item["index"],
-                    "sequence": item["sequence"],
-                    "type": item["type"],
-                    "brightness": item["brightness"],
-                }
-                json_line = json.dumps(record, ensure_ascii=False)
-                if local_i > 0:
-                    f.write(",\n")
-                f.write(f"  {json_line}")
-            f.write("\n]")
+            records_buffer.append({
+                "index": item["index"],
+                "sequence": seq,
+                "type": item["type"],
+                "brightness": item["brightness"],
+            })
+            embeddings_buffer.append(emb)
+            total += 1
 
-        mmap.flush()
-        del mmap
-
-        raw = np.memmap(
-            raw_path, dtype="float32", mode="r", shape=(shard_count, embed_dim)
-        )
-        np.save(shard_npy_path, np.array(raw))
-        os.remove(raw_path)
-        del raw
-
-        shard_list.append(
-            {
-                "shard": shard_idx,
-                "json": os.path.basename(shard_json_path),
-                "npy": os.path.basename(shard_npy_path),
-                "count": shard_count,
-            }
-        )
+            if len(records_buffer) >= shard_size:
+                shard_list.append(_write_shard(
+                    shard_idx, records_buffer, embeddings_buffer, base, embed_dim
+                ))
+                shard_idx += 1
+                records_buffer = []
+                embeddings_buffer = []
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
 
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
 
-        print(f"  Shard {shard_idx}: {shard_count} records → {shard_json_path}")
+    if records_buffer:
+        shard_list.append(_write_shard(
+            shard_idx, records_buffer, embeddings_buffer, base, embed_dim
+        ))
+        shard_idx += 1
+        records_buffer = []
+        embeddings_buffer = []
 
+    num_shards = len(shard_list)
     manifest = {
         "total_records": total,
         "num_shards": num_shards,

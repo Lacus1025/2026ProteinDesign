@@ -15,7 +15,7 @@ class EVAL:
         self.embedding = ESM_embedding()
 
         checkpoint = torch.load(model_path, map_location=device, weights_only=False)
-        self.model = BrightnessRegressor(embed_dim=2560)
+        self.model = BrightnessRegressor()
 
         if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
             self.model.load_state_dict(checkpoint["model_state_dict"])

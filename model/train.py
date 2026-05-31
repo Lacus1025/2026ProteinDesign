@@ -186,21 +186,21 @@ train_dataset, val_dataset, test_dataset = torch.utils.data.random_split(
 num_workers = 4 if device.type == "cuda" else 0
 train_loader = DataLoader(
     train_dataset,
-    batch_size=256,
+    batch_size=512,
     shuffle=True,
     num_workers=num_workers,
     pin_memory=True if device.type == "cuda" else False,
 )
 val_loader = DataLoader(
     val_dataset,
-    batch_size=256,
+    batch_size=512,
     shuffle=False,
     num_workers=num_workers,
     pin_memory=True if device.type == "cuda" else False,
 )
 test_loader = DataLoader(
     test_dataset,
-    batch_size=256,
+    batch_size=512,
     shuffle=False,
     num_workers=num_workers,
     pin_memory=True if device.type == "cuda" else False,
@@ -214,10 +214,10 @@ from model.BrightnessRegressor import BrightnessRegressor
 
 CONFIG = {
     "embed_dim": 2560,
-    "learning_rate": 0.0001,
-    "num_epochs": 2000,
+    "learning_rate": 0.0005,
+    "num_epochs": 500,
     "checkpoint_freq": 30,
-    "early_stopping_patience": 50,
+    "early_stopping_patience": 40,
     "checkpoint_dir": "checkpoints",
     "log_file": "training_logs.json",
     "device": device.type,
@@ -233,7 +233,7 @@ optimizer = optim.Adam(model.parameters(), lr=CONFIG["learning_rate"])
 
 # 可选：添加学习率调度器
 scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer, mode="min", factor=0.5, patience=10
+    optimizer, mode="min", factor=0.5, patience=15
 )
 
 checkpoint_path = os.path.join(CONFIG["checkpoint_dir"], "checkpoint.pth.tar")
