@@ -48,7 +48,7 @@ def _write_shard(shard_idx, records, embeddings, base, embed_dim):
 
 
 def export_dataset_json(output_path, batch=None, chunk_size=1000, shard_size=1000):
-    df = pd.read_excel("./GFP_data.xlsx")
+    df = pd.read_excel("../GFP_data.xlsx")
 
     data = get_json_sequence(df, batch)
     print(f"原始序列数: {len(data)}")

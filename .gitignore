@@ -7,3 +7,14 @@ __pycache__
 *.npy
 *.pth
 *.tar
+gfp_dataset_shard_*.json
+training_logs*.json
+pipeline_results*.json
+evaluation_results.json
+ensemble_manifest.json
+*.fas
+model/evaluation_results.json
+model/training_logs.json
+netsurfp.py
+utils/export_fasta.py
+gfp_dataset.fas

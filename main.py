@@ -5,11 +5,12 @@ import random
 import time
 import torch
 import numpy as np
+import gc
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 CONFIG = {
-    "initial_sequence": "______AAB______",
+    "initial_sequence": "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTLSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK",
     "batch_size_per_parent": 200,
     "top_k_ratio": 0.1,
     "max_parents": 20,
@@ -123,12 +124,9 @@ def main():
 
         parent_count = len(current_parents)
         for i, parent_seq in enumerate(current_parents):
-            if round_idx == 0:
-                masked_seq = parent_seq
-            else:
-                masked_seq = drop_residues(
-                    parent_seq, CONFIG["drop_rate"], CONFIG["mask_token"]
-                )
+            masked_seq = drop_residues(
+                parent_seq, CONFIG["drop_rate"], CONFIG["mask_token"]
+            )
 
             print(f"  [{i + 1}/{parent_count}] Generating {CONFIG['batch_size_per_parent']} sequences...")
             parent_start = time.time()
@@ -152,6 +150,7 @@ def main():
 
         # Release ESM3 from GPU
         del generator
+        gc.collect()
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
 
