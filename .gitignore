@@ -7,7 +7,7 @@ __pycache__
 *.npy
 *.pth
 *.tar
-gfp_dataset_shard_*.json
+gfp_dataset_shard*.json
 training_logs*.json
 pipeline_results*.json
 evaluation_results.json
