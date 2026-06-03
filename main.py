@@ -14,8 +14,8 @@ CONFIG = {
     "batch_size_per_parent": 200,
     "top_k_ratio": 0.1,
     "max_parents": 20,
-    "drop_rate": 0.1,
-    "temperature": 1.0,
+    "drop_rate": 0.01,
+    "temperature": 1.5,
     "num_rounds": 10,
     "model_path": "model_final.pth",
     "output_file": "pipeline_results.json",
@@ -23,7 +23,7 @@ CONFIG = {
     "mask_token": "_",
     "min_sequence_length": 225,
     "max_sequence_length": 250,
-    "device": "auto",  # "auto" | "cuda" | "cpu"
+    "device": "cuda:3",  # "auto" | "cuda" | "cpu"
 }
 
 
@@ -108,6 +108,10 @@ def main():
     current_parents = [CONFIG["initial_sequence"]]
     global_top_sequences = []
 
+    # Load ESM3 once, reuse across all rounds
+    print("\nLoading ESM3 generator...")
+    generator = ESM_generate(device=device)
+
     for round_idx in range(CONFIG["num_rounds"]):
         round_start = time.time()
         print(f"\n{'=' * 60}")
@@ -116,8 +120,7 @@ def main():
         print(f"{'=' * 60}")
 
         # Phase 1: Generation with ESM3
-        print("\n[Phase 1] Loading ESM3 generator...")
-        generator = ESM_generate(device=device)
+        print(f"\n[Phase 1] Generating {len(current_parents) * CONFIG['batch_size_per_parent']} sequences...")
 
         round_data = {
             "round": round_idx + 1,
@@ -152,12 +155,6 @@ def main():
             )
             all_generated.extend(sequences)
             print(f"  [{i + 1}/{parent_count}] Generated {len(sequences)} valid seqs ({parent_elapsed:.1f}s)")
-
-        # Release ESM3 from GPU
-        del generator
-        gc.collect()
-        if device == "cuda":
-            torch.cuda.empty_cache()
 
         valid_count = len(all_generated)
         if valid_count == 0:
@@ -209,6 +206,12 @@ def main():
 
         elapsed = time.time() - round_start
         print(f"Round {round_idx + 1} done ({elapsed:.1f}s)\n")
+
+    # Release ESM3 from GPU
+    del generator
+    gc.collect()
+    if "cuda" in device:
+        torch.cuda.empty_cache()
 
     # Final summary
     print(f"\n{'=' * 60}")

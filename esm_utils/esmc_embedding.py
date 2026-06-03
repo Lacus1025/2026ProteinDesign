@@ -5,8 +5,11 @@ SEQUENCE_LEN = 250
 
 
 class ESM_embedding:
-    def __init__(self):
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
+    def __init__(self, device="cuda"):
+        if device == "cuda" and not torch.cuda.is_available():
+            print("⚠️ CUDA不可用，将使用CPU")
+            device = "cpu"
+        self.device = device
         self.model = AutoModelForMaskedLM.from_pretrained("Biohub/ESMC-6B",).to(self.device).eval()
         self.tokenizer = AutoTokenizer.from_pretrained("Biohub/ESMC-6B")
 

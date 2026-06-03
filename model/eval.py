@@ -10,13 +10,13 @@ from model.BrightnessRegressor import BrightnessRegressor
 
 
 class EVAL:
-    def __init__(self, model_path, device="cuda"):
+    def __init__(self, model_path, device="cuda:3"):
         # 自动降级：如果指定cuda但不可用，则回退到cpu
-        if device == "cuda" and not torch.cuda.is_available():
+        if "cuda" in device and not torch.cuda.is_available():
             print("⚠️ CUDA不可用，将使用CPU")
             device = "cpu"
         self.device = device
-        self.embedding = ESM_embedding()  # 如果ESM_embedding支持设备参数，可传入self.device
+        self.embedding = ESM_embedding(device=self.device)  # 如果ESM_embedding支持设备参数，可传入self.device
 
         checkpoint = torch.load(model_path, map_location=device, weights_only=False)
         self.model = BrightnessRegressor()
@@ -50,10 +50,10 @@ class EVAL:
 
 if __name__ == "__main__":
     # 自动选择GPU（如果可用）
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = "cuda:3" if torch.cuda.is_available() else "cpu"
     model_file = "../model_final.pth" if os.path.exists("../model_final.pth") else "../model.pth"
     eval_model = EVAL(model_file, device=device)
-    test_seq = "MSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLTLKFICTTGKLPVPWPTLVTTLSYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFKDDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKNGIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDHMVLLEFVTAAGITHGMDELYK"
+    test_seq = "MPLPATHDIHLHGSINGHEFDMVGGGKGDPNAGSLVTTAKSTKGALKFSPYLMIPHLGYGYYQYLPYPDGPSPFQVSMLEGSGYAVYRVFDFEDGGKLSTEFKYSYEGSHIKADMKLMGSGFPDDGPVMTSQIVDQDGCVSKKTYLNNNTIVDSFDWSYNLQNGKRYRARVSSHYIFDKPFSADLMKKQPVFVYRKCHVKATKTEVTLDEREKAFYELA"
     result = eval_model.predict(test_seq)
     print(f"序列: {test_seq}")
     print(f"预测亮度: {result:.4f}")
