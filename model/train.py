@@ -21,7 +21,7 @@ SEED = 114514
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 CONFIG = {
-    "embed_dim": 2560,
+    "embed_dim": 12800,
     "learning_rate": 0.0005,
     "num_epochs": 500,
     "checkpoint_freq": 30,

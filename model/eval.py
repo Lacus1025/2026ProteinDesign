@@ -42,7 +42,7 @@ class EVAL:
         with torch.no_grad():
             emb = self.embedding.embedding_sequence(seq)
             emb = self._process_embedding(emb)
-            emb = emb.mean(axis=0)
+            emb = emb.reshape(5, 50, 2560).mean(axis=1).reshape(-1)
             data = torch.from_numpy(emb).unsqueeze(0).to(self.device)
             output = self.model(data)
             return float(np.expm1(output.item()))

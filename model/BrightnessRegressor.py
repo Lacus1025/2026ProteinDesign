@@ -22,17 +22,18 @@ class ResidualBlock(nn.Module):
 
 
 class BrightnessRegressor(nn.Module):
-    def __init__(self, embed_dim=2560):
+    def __init__(self, embed_dim=12800):
         super().__init__()
 
         self.input_proj = nn.Sequential(
-            nn.Linear(embed_dim, 1024),
-            nn.BatchNorm1d(1024),
+            nn.Linear(embed_dim, 4096),
+            nn.BatchNorm1d(4096),
             nn.GELU(),
             nn.Dropout(0.3),
         )
 
-        self.resblock1 = ResidualBlock(1024, 512, dropout=0.2)
+        self.resblock0 = ResidualBlock(4096, 4096, dropout=0.2)
+        self.resblock1 = ResidualBlock(4096, 512, dropout=0.2)
         self.resblock2 = ResidualBlock(512, 256, dropout=0.1)
         self.resblock3 = ResidualBlock(256, 128, dropout=0.1)
         self.resblock4 = ResidualBlock(128, 64)
@@ -41,6 +42,7 @@ class BrightnessRegressor(nn.Module):
 
     def forward(self, x):
         x = self.input_proj(x)
+        x = self.resblock0(x)
         x = self.resblock1(x)
         x = self.resblock2(x)
         x = self.resblock3(x)

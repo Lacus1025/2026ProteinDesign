@@ -55,7 +55,7 @@ def export_dataset_json(output_path, batch=None, chunk_size=1000, shard_size=100
 
     embedding_model = ESM_embedding()
 
-    embed_dim = 2560
+    embed_dim = 12800
     base = output_path.replace(".json", "").rstrip("_")
 
     total = 0
@@ -78,7 +78,7 @@ def export_dataset_json(output_path, batch=None, chunk_size=1000, shard_size=100
             emb = embedding_model.embedding_sequence(seq)
             if torch.is_tensor(emb):
                 emb = emb.detach().cpu().numpy()
-            emb = emb.mean(axis=0).astype(np.float32)
+            emb = emb.reshape(5, 50, 2560).mean(axis=1).reshape(-1).astype(np.float32)
 
             records_buffer.append({
                 "index": item["index"],
