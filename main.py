@@ -23,6 +23,7 @@ CONFIG = {
     "mask_token": "_",
     "min_sequence_length": 225,
     "max_sequence_length": 250,
+    "device": "auto",  # "auto" | "cuda" | "cpu"
 }
 
 
@@ -91,6 +92,10 @@ def main():
     random.seed(CONFIG["seed"])
     np.random.seed(CONFIG["seed"])
 
+    device = CONFIG["device"]
+    if device == "auto":
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+
     print("=" * 60)
     print("Protein Design Pipeline")
     print("=" * 60)
@@ -112,7 +117,7 @@ def main():
 
         # Phase 1: Generation with ESM3
         print("\n[Phase 1] Loading ESM3 generator...")
-        generator = ESM_generate()
+        generator = ESM_generate(device=device)
 
         round_data = {
             "round": round_idx + 1,
@@ -151,7 +156,7 @@ def main():
         # Release ESM3 from GPU
         del generator
         gc.collect()
-        if torch.cuda.is_available():
+        if device == "cuda":
             torch.cuda.empty_cache()
 
         valid_count = len(all_generated)
@@ -171,13 +176,13 @@ def main():
 
         # Phase 2: Evaluation
         print(f"\n[Phase 2] Loading brightness evaluator...")
-        evaluator = EVAL(CONFIG["model_path"])
+        evaluator = EVAL(CONFIG["model_path"], device=device)
 
         results = evaluate_sequences(evaluator, all_generated)
         round_data["generated"] = results
 
         del evaluator
-        if torch.cuda.is_available():
+        if device == "cuda":
             torch.cuda.empty_cache()
 
         # Phase 3: Select top and prepare next round
