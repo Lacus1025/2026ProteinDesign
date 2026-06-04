@@ -48,7 +48,7 @@ def _write_shard(shard_idx, records, embeddings, base, embed_dim):
 
 
 def export_dataset_json(output_path, batch=None, chunk_size=1000, shard_size=1000):
-    df = pd.read_excel("../GFP_data.xlsx")
+    df = pd.read_excel("./GFP_data.xlsx")
 
     data = get_json_sequence(df, batch)
     print(f"原始序列数: {len(data)}")
@@ -70,7 +70,7 @@ def export_dataset_json(output_path, batch=None, chunk_size=1000, shard_size=100
         chunk_end = min(chunk_start + chunk_size, len(data))
         chunk = data[chunk_start:chunk_end]
 
-        for item in chunk:
+        for item in tqdm(chunk):
             seq = item["sequence"]
             if not (225 <= len(seq) <= 250):
                 continue

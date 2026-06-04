@@ -7,6 +7,7 @@ import sys
 
 import numpy as np
 import torch
+from tqdm import tqdm
 import torch.nn as nn
 import torch.optim as optim
 from sklearn.metrics import r2_score
@@ -265,7 +266,7 @@ def main() -> None:
     set_seed(SEED)
     print_device_info()
 
-    dataset = GFP_Dataset("/data1/user/wuruiluo/protein_design/2026ProteinDesign/gfp_dataset.json")
+    dataset = GFP_Dataset("/data1/user/wuruiluo/protein_design/PoDin/gfp_dataset.json")
     train_size = int(0.8 * len(dataset))
     val_size = int(0.1 * len(dataset))
     test_size = len(dataset) - train_size - val_size
@@ -302,7 +303,7 @@ def main() -> None:
     for epoch in range(start_epoch, num_epochs):
         model.train()
         total_loss = 0.0
-        for data, labels in train_loader:
+        for data, labels in tqdm(train_loader, desc=f"Epoch {epoch + 1}/{num_epochs}", leave=False):
             data, labels = data.to(DEVICE), labels.to(DEVICE)
             outputs = model(data)
             loss = criterion(outputs, labels)
