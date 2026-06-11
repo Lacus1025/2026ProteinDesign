@@ -24,6 +24,8 @@ CONFIG = {
     "min_sequence_length": 225,
     "max_sequence_length": 250,
     "device": "cuda:3",
+    "tm_config": "configs/S_esmc/model3.py",
+    "tm_checkpoint": "results/S_esmc/seed-101/model3/epoch_best.pth",
 }
 
 LOCKED_POSITIONS = {
@@ -63,7 +65,7 @@ def generate_batch(generator, masked_seq, batch_size, temperature):
     return sequences
 
 
-def evaluate_sequences(evaluator, sequences):
+def evaluate_sequences(evaluator, tm_predictor, sequences):
     results = []
     total = len(sequences)
     for idx, seq in enumerate(sequences):
@@ -71,7 +73,12 @@ def evaluate_sequences(evaluator, sequences):
             print(f"  Evaluating {idx + 1}/{total}...")
         try:
             brightness = evaluator.predict(seq)
-            results.append({"sequence": seq, "brightness": round(brightness, 6)})
+            tm = tm_predictor.predict(seq)
+            results.append({
+                "sequence": seq,
+                "brightness": round(brightness, 6),
+                "tm": round(tm, 4),
+            })
         except Exception as e:
             print(f"  Evaluation error at idx {idx}: {e}")
     return results
@@ -80,7 +87,7 @@ def evaluate_sequences(evaluator, sequences):
 def select_top(results, ratio, max_count):
     if not results:
         return []
-    results = sorted(results, key=lambda x: x["brightness"], reverse=True)
+    results = sorted(results, key=lambda x: x["composite_score"], reverse=True)
     n = max(1, min(max_count, int(len(results) * ratio)))
     return results[:n]
 
@@ -143,8 +150,28 @@ def filter_valid_sequences(sequences, excluded_set=None):
     return result
 
 
+def compute_composite_scores(results, tm_wt):
+    if not results:
+        return
+    b_arr = np.array([r["brightness"] for r in results])
+    tm_arr = np.array([r["tm"] for r in results])
+    dtm_arr = tm_arr - tm_wt
+
+    b_min, b_max = b_arr.min(), b_arr.max()
+    dtm_min, dtm_max = dtm_arr.min(), dtm_arr.max()
+
+    b_norm = np.full_like(b_arr, 0.5) if b_max == b_min else (b_arr - b_min) / (b_max - b_min)
+    dtm_norm = np.full_like(dtm_arr, 0.5) if dtm_max == dtm_min else (dtm_arr - dtm_min) / (dtm_max - dtm_min)
+
+    composite = b_norm * dtm_norm
+    for i, r in enumerate(results):
+        r["composite_score"] = round(float(composite[i]), 6)
+        r["delta_tm"] = round(float(dtm_arr[i]), 4)
+
+
 def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
     from model.eval import EVAL
+    from esm_utils.tm_predictor import TM_PREDICTOR
 
     output_file = f"pipeline_results_{substrate_type}.json"
     locked_positions = LOCKED_POSITIONS[substrate_type]
@@ -162,6 +189,12 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
     print(f"Exclusion list loaded: {len(excluded_set)} sequences")
     print("=" * 60)
 
+    print("\nLoading Tm predictor...")
+    tm_predictor = TM_PREDICTOR(device=device, config_rel=config["tm_config"],
+                                 checkpoint_rel=config["tm_checkpoint"])
+    tm_wt = tm_predictor.predict(initial_sequence)
+    print(f"WT Tm ({substrate_type}): {tm_wt:.2f}")
+
     all_rounds = []
     current_parents = [initial_sequence]
     global_top_sequences = []
@@ -174,7 +207,9 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
               f"Target: {len(current_parents) * config['batch_size_per_parent']}")
         print(f"{'=' * 60}")
 
-        print(f"\n[Phase 1] Generating...")
+        print(f"\n[Phase 1] Loading evaluators...")
+        evaluator = EVAL(config["model_path"], device=device)
+        print(f"\n[Phase 2] Generating and evaluating...")
 
         round_data = {
             "round": round_idx + 1,
@@ -182,7 +217,8 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
             "generated": [],
             "top": [],
         }
-        all_generated = []
+        all_results = []
+        total_generated = 0
 
         parent_count = len(current_parents)
         for i, parent_seq in enumerate(current_parents):
@@ -203,18 +239,40 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
                 config["temperature"],
             )
 
+            n_raw = len(sequences)
+            sequences = deduplicate_sequences(sequences)
+            n_unique = len(sequences)
+            sequences = filter_valid_sequences(sequences, excluded_set)
+            n_valid = len(sequences)
+            total_generated += n_valid
+
             parent_elapsed = time.time() - parent_start
+            print(f"  [{i + 1}/{parent_count}] Generated {n_raw} raw, "
+                  f"{n_unique} unique, {n_valid} valid ({parent_elapsed:.1f}s)")
+
+            if n_valid == 0:
+                round_data["parents"].append({
+                    "parent": parent_seq,
+                    "masked": masked_seq if round_idx > 0 else parent_seq,
+                    "generated_count": 0,
+                })
+                continue
+
+            batch_results = evaluate_sequences(evaluator, tm_predictor, sequences)
+            compute_composite_scores(batch_results, tm_wt)
+
             round_data["parents"].append({
                 "parent": parent_seq,
                 "masked": masked_seq if round_idx > 0 else parent_seq,
-                "generated_count": len(sequences),
+                "generated_count": len(batch_results),
             })
-            all_generated.extend(sequences)
-            print(f"  [{i + 1}/{parent_count}] Generated {len(sequences)} valid "
-                  f"seqs ({parent_elapsed:.1f}s)")
+            all_results.extend(batch_results)
 
-        valid_count = len(all_generated)
-        if valid_count == 0:
+        del evaluator
+        if "cuda" in device:
+            torch.cuda.empty_cache()
+
+        if total_generated == 0:
             print(f"Warning: Round {round_idx + 1} generated 0 valid sequences.")
             round_data["generated"] = []
             round_data["top"] = []
@@ -226,24 +284,10 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
                           indent=2, ensure_ascii=False)
             continue
 
-        all_generated = deduplicate_sequences(all_generated)
-        n_before_filter = len(all_generated)
-        all_generated = filter_valid_sequences(all_generated, excluded_set)
-        n_filtered = n_before_filter - len(all_generated)
-        print(f"Phase 1 done: {valid_count} generated, {n_before_filter} unique, "
-              f"{n_filtered} filtered (invalid AA / exclusion list)")
+        round_data["generated"] = all_results
+        print(f"Phase 2 done: {total_generated} valid seqs evaluated")
 
-        print(f"\n[Phase 2] Loading brightness evaluator...")
-        evaluator = EVAL(config["model_path"], device=device)
-
-        results = evaluate_sequences(evaluator, all_generated)
-        round_data["generated"] = results
-
-        del evaluator
-        if "cuda" in device:
-            torch.cuda.empty_cache()
-
-        top_results = select_top(results, config["top_k_ratio"], config["max_parents"])
+        top_results = select_top(all_results, config["top_k_ratio"], config["max_parents"])
         round_data["top"] = top_results
 
         if top_results:
@@ -253,7 +297,9 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
             for rank, item in enumerate(top_results, 1):
                 seq = item["sequence"]
                 short_seq = seq[:30] + "..." + seq[-30:] if len(seq) > 60 else seq
-                print(f"  #{rank:>3}  brightness={item['brightness']:.4f}  {short_seq}")
+                print(f"  #{rank:>3}  score={item['composite_score']:.4f}  "
+                      f"b={item['brightness']:.4f}  "
+                      f"dTm={item.get('delta_tm', 0):+.2f}  {short_seq}")
         else:
             print("\nPhase 3: No sequences survived selection.")
             break
@@ -268,12 +314,16 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
         elapsed = time.time() - round_start
         print(f"Round {round_idx + 1} done ({elapsed:.1f}s)\n")
 
+    del tm_predictor
+    if "cuda" in device:
+        torch.cuda.empty_cache()
+
     print(f"\n{'=' * 60}")
     print(f"[{substrate_type}] Pipeline Complete")
     print(f"{'=' * 60}")
 
     global_top_sequences = sorted(
-        global_top_sequences, key=lambda x: x["brightness"], reverse=True
+        global_top_sequences, key=lambda x: x["composite_score"], reverse=True
     )
 
     final_output = {
@@ -285,6 +335,9 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
                              if global_top_sequences else None,
             "best_brightness": global_top_sequences[0]["brightness"]
                                if global_top_sequences else None,
+            "best_composite_score": global_top_sequences[0]["composite_score"]
+                                   if global_top_sequences else None,
+            "tm_wt": tm_wt,
             "top_10_overall": global_top_sequences[:10],
         },
         "rounds": all_rounds,
@@ -292,7 +345,8 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
     with open(output_file, "w") as f:
         json.dump(final_output, f, indent=2, ensure_ascii=False)
 
-    print(f"\nBest brightness: {final_output['summary']['best_brightness']}")
+    print(f"\nBest composite score: {final_output['summary']['best_composite_score']}")
+    print(f"Best brightness: {final_output['summary']['best_brightness']}")
     print(f"Results saved to {output_file}")
     if os.path.exists(output_file):
         print(f"Total JSON size: {os.path.getsize(output_file) / 1024 / 1024:.1f} MB")
