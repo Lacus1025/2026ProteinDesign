@@ -11,9 +11,9 @@ from esm.sdk.api import ESM3InferenceClient, ESMProtein, GenerationConfig
 # TEMPERATURE = 1
 NUM_STEP = 8
 
-_token = get_token()
-if _token:
-    login(token=_token)
+# _token = get_token()
+# if _token:
+    # login(token=_token)
 
 class ESM_generate:
     def __init__(self, device="auto"):
