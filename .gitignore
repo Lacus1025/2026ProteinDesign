@@ -18,5 +18,4 @@ model/training_logs.json
 netsurfp.py
 utils/export_fasta.py
 gfp_dataset.fas
-predict_tm.py
 tm_predictions.json
