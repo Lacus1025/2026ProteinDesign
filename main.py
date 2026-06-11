@@ -23,14 +23,14 @@ CONFIG = {
     "mask_token": "_",
     "min_sequence_length": 225,
     "max_sequence_length": 250,
-    "device": "cuda:3",
+    "device": "cuda",
     "tm_config": "configs/S_esmc/model3.py",
     "tm_checkpoint": "results/S_esmc/seed-101/model3/epoch_best.pth",
 }
 
 LOCKED_POSITIONS = {
-    "avGFP": {1: "M", 64: "L", 65: "S", 66: "Y", 67: "G", 94: "Q",
-              96: "R", 148: "H", 203: "T", 205: "S", 206: "A", 222: "E"},
+    # "avGFP": {1: "M", 64: "L", 65: "S", 66: "Y", 67: "G", 94: "Q",
+            #   96: "R", 148: "H", 203: "T", 205: "S", 206: "A", 222: "E"},
     "sfGFP": {1: "M", 30: "R", 39: "N", 64: "L", 65: "T", 66: "Y",
               67: "G", 94: "Q", 96: "R", 99: "S", 105: "T", 145: "F",
               147: "P", 148: "H", 153: "T", 163: "A", 171: "V", 203: "T",
@@ -363,15 +363,15 @@ def main():
     ref_path = "AAseqs of 5 GFP proteins_20260511.txt"
     ref_seqs = read_reference_file(ref_path)
 
-    av_ref = ref_seqs.get("avGFP", "")
+    # av_ref = ref_seqs.get("avGFP", "")
     sf_ref = ref_seqs.get("sfGFP", "")
 
-    if not av_ref or not sf_ref:
-        raise ValueError(f"Cannot find avGFP/sfGFP in {ref_path}")
+    # if not av_ref or not sf_ref:
+        # raise ValueError(f"Cannot find avGFP/sfGFP in {ref_path}")
 
     sf_seq = sf_ref[:146] + "P" + sf_ref[147:]
 
-    print(f"avGFP reference: {len(av_ref)} aa (matches locked positions)")
+    # print(f"avGFP reference: {len(av_ref)} aa (matches locked positions)")
     print(f"sfGFP reference: {len(sf_ref)} aa (S147P applied)")
 
     print("\nLoading S4PRED secondary structure predictor...")
