@@ -15,7 +15,7 @@ CONFIG = {
     "batch_size_per_parent": 200,
     "top_k_ratio": 0.1,
     "max_parents": 20,
-    "drop_rate": 0.01,
+    "drop_rate": 0.05,
     "temperature": 1.5,
     "num_rounds": 10,
     "model_path": "model_final.pth",
@@ -163,7 +163,7 @@ def compute_composite_scores(results, tm_wt):
     b_norm = np.full_like(b_arr, 0.5) if b_max == b_min else (b_arr - b_min) / (b_max - b_min)
     dtm_norm = np.full_like(dtm_arr, 0.5) if dtm_max == dtm_min else (dtm_arr - dtm_min) / (dtm_max - dtm_min)
 
-    composite = b_norm * dtm_norm
+    composite = b_norm * b_norm * dtm_norm
     for i, r in enumerate(results):
         r["composite_score"] = round(float(composite[i]), 6)
         r["delta_tm"] = round(float(dtm_arr[i]), 4)
@@ -259,7 +259,6 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
                 continue
 
             batch_results = evaluate_sequences(evaluator, tm_predictor, sequences)
-            compute_composite_scores(batch_results, tm_wt)
 
             round_data["parents"].append({
                 "parent": parent_seq,
@@ -286,6 +285,8 @@ def run_pipeline(substrate_type, initial_sequence, config, s4pred, generator):
 
         round_data["generated"] = all_results
         print(f"Phase 2 done: {total_generated} valid seqs evaluated")
+
+        compute_composite_scores(all_results, tm_wt)
 
         top_results = select_top(all_results, config["top_k_ratio"], config["max_parents"])
         round_data["top"] = top_results
