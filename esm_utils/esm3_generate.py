@@ -4,13 +4,16 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import torch
 from huggingface_hub import login
+from huggingface_hub import get_token
 from esm.models.esm3 import ESM3
 from esm.sdk.api import ESM3InferenceClient, ESMProtein, GenerationConfig
 
 # TEMPERATURE = 1
 NUM_STEP = 8
 
-login()
+_token = get_token()
+if _token:
+    login(token=_token)
 
 class ESM_generate:
     def __init__(self, device="auto"):
