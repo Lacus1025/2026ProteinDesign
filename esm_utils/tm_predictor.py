@@ -4,7 +4,7 @@ import numpy as np
 import torch
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PROCESA_DEFAULT = os.path.join(BASE_DIR, "ProCeSa", "procesa")
+PROCESA_DEFAULT = os.path.join(os.path.dirname(BASE_DIR), "ProCeSa", "procesa")
 
 
 class TM_PREDICTOR:

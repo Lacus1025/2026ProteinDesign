@@ -10,7 +10,7 @@ from model.BrightnessRegressor import BrightnessRegressor
 
 
 class EVAL:
-    def __init__(self, model_path, device="cuda:3"):
+    def __init__(self, model_path, device="cuda"):
         # 自动降级：如果指定cuda但不可用，则回退到cpu
         if "cuda" in device and not torch.cuda.is_available():
             print("⚠️ CUDA不可用，将使用CPU")
@@ -50,10 +50,11 @@ class EVAL:
 
 if __name__ == "__main__":
     # 自动选择GPU（如果可用）
-    device = "cuda:3" if torch.cuda.is_available() else "cpu"
-    model_file = "../model_final.pth" if os.path.exists("../model_final.pth") else "../model.pth"
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    model_file = "./model_final.pth" if os.path.exists("./model_final.pth") else "./model.pth"
     eval_model = EVAL(model_file, device=device)
-    test_seq = "MPLPATHDIHLHGSINGHEFDMVGGGKGDPNAGSLVTTAKSTKGALKFSPYLMIPHLGYGYYQYLPYPDGPSPFQVSMLEGSGYAVYRVFDFEDGGKLSTEFKYSYEGSHIKADMKLMGSGFPDDGPVMTSQIVDQDGCVSKKTYLNNNTIVDSFDWSYNLQNGKRYRARVSSHYIFDKPFSADLMKKQPVFVYRKCHVKATKTEVTLDEREKAFYELA"
+    test_seq = "MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTLVTTLTYGVQCFSRYPDHMKRHDFFKSAMPEGYVQERTISFKDDGTYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNFNPHNVYITADKQKNGIKANFKIRHNVEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSVLSKDPNEKRDHMVLLEFVTAAGITHGMDELYK"
     result = eval_model.predict(test_seq)
     print(f"序列: {test_seq}")
     print(f"预测亮度: {result:.4f}")
+# MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTLVTTLTYGVQCFSRYPDHMKRHDFFKSAMPEGYVQERTISFKDDGTYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNFNPHNVYITADKQKNGIKANFKIRHNVEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSVLSKDPNEKRDHMVLLEFVTAAGITHGMDELYK
