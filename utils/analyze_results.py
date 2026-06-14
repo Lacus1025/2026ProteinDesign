@@ -192,8 +192,16 @@ def trace_evolution(
 ) -> list[EvolutionStep]:
     steps: list[EvolutionStep] = []
     current = target_seq
+    visited: set[str] = set()
 
     while current in lineage:
+        if current in visited:
+            print(
+                f"  ⚠ Cycle detected in lineage for seq {current[:50]}... — breaking",
+                file=sys.stderr,
+            )
+            break
+        visited.add(current)
         info = lineage[current]
         entry = info["entry"]
         steps.append(
@@ -675,7 +683,7 @@ def plot_combined_summary(
 
 
 def main() -> None:
-    res_dir = "res" # 此处修改结果文件夹,默认输出为res文件夹下的所有实验结果.
+    res_dir = "res"  # 此处修改结果文件夹,默认输出为res文件夹下的所有实验结果.
     output_dir = OUTPUT_DIR
     top_n = TOP_N
 
