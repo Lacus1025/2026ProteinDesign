@@ -128,6 +128,17 @@ composite_score = b_norm² × dtm_norm
 
 ---
 
+<<<<<<< HEAD
+=======
+## 一键运行
+
+```bash
+bash run.sh
+```
+
+依次执行：conda 环境激活 → pip 依赖安装 → 数据集导出（含 ESM 嵌入）→ 训练（日志保存到 `logs/` 目录）。
+
+>>>>>>> 861f679f0599eab773b152ca4ee214c30a3f81b8
 ## 项目结构
 
 ```
@@ -160,6 +171,13 @@ composite_score = b_norm² × dtm_norm
 └── checkpoints/                         # 训练检查点
 ```
 
+<<<<<<< HEAD
+=======
+> **外部依赖**（需放置在项目同级目录）：
+> - `../ProCeSa/procesa/` — ProCeSa 热稳定性预测模型（含 configs、results、weights）
+> - `../s4pred/` — S4PRED 二级结构预测模型（含 weights/）
+
+>>>>>>> 861f679f0599eab773b152ca4ee214c30a3f81b8
 ---
 
 ## 技术细节

@@ -1,0 +1,1479 @@
+GLOBAL SEQUENCE ANALYSIS REPORT
+================================================================================
+Total sequences analyzed: 234901
+Experiments: res_6-11_2Xbweight_147P, res_6-11_4Xbweight, res_6-12_4Xbweight_147P, res_6-12_6Xbweight_147P, res_6-12_FULLbweight_147P, res_6-13_FULLbweight147P_2, res_6-14_4Xbweight_147P_15round
+Scoring formulas: brightness²×ΔTm, brightness×ΔTm, brightness only
+Normalization: NONE (raw values only)
+================================================================================
+
+========================================================================================================================
+  GLOBAL TOP 20  —  Brightness² × ΔTm
+========================================================================================================================
+  #  Experiment                     Rnd  Brightness   Tm (°C)       ΔTm         Score  Seq (first 50)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  1  6-11_4Xbweight                   8      3.9064     86.98     31.69      483.5303  MLKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICKD
+  2  6-11_4Xbweight                  10      3.6614     90.88     35.58      477.0075  MIKGTLLFENGVPILVELDGEVNGHKFSVRGEGEGDIENAKLTLKFICDD
+  3  6-11_4Xbweight                  10      3.7289     89.56     34.27      476.4995  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTE
+  4  6-11_4Xbweight                  10      3.8072     87.44     32.14      465.8294  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIKNEKLTLKFICDD
+  5  6-11_4Xbweight                   9      3.8444     86.74     31.44      464.6988  MRGGTLLFEKKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICLD
+  6  6-11_4Xbweight                  10      3.7252     88.58     33.28      461.8306  MIKGTLLFEEGVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDD
+  7  6-11_4Xbweight                  10      3.6577     89.74     34.44      460.8082  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIVNGKLTLKFICDD
+  8  6-11_4Xbweight                  10      3.7926     87.31     32.02      460.5233  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDD
+  9  6-11_4Xbweight                   9      3.7130     88.27     32.97      454.6100  MIKGTLLFEDKVKILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICDD
+ 10  6-12_4Xbweight_147P              9      3.9327     88.82     29.21      451.7326  MSNIKELFTGVVPILVELDGEVDGHKFSVRGEGEGDLPNGKLTLKFICTE
+ 11  6-11_4Xbweight                  10      3.6963     88.31     33.01      450.9979  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTE
+ 12  6-11_4Xbweight                  10      3.8144     85.78     30.48      443.5271  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTE
+ 13  6-11_4Xbweight                  10      3.7615     86.62     31.32      443.1696  MVKGTLLFKNKVPILVELDGEVAGHKFSVRGEGEGDIPNGKLTLKFICKD
+ 14  6-11_4Xbweight                  10      3.6499     88.41     33.11      441.1077  MMKGTLLFEGKVPILVELDGEVEGHKFSVRGEGEGDLENKKLTLKFICTE
+ 15  6-11_4Xbweight                   9      3.8275     85.37     30.08      440.6148  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLKNKKLTLKFICTE
+ 16  6-11_4Xbweight                  10      3.6365     88.57     33.27      440.0269  MMKGTLLFEGKVPILVELDGEVYGHKFSVRGEGEGDLENKKLTLKFICTE
+ 17  6-11_4Xbweight                  10      3.6573     87.97     32.67      436.9944  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTE
+ 18  6-11_4Xbweight                  10      3.7864     85.74     30.44      436.4112  MVKGTLLFNNKVPILVELDGEVEGHKFSVRGEGEGDIPNGKLTLKFICKD
+ 19  6-11_4Xbweight                   9      3.7704     85.98     30.69      436.2440  MIKGTLLFDGDVPILVELDGEVNGHKFSVRGEGEGDLKNRKLTLKFICTE
+ 20  6-11_4Xbweight                   9      3.8302     85.03     29.73      436.1427  MRGGTLLLEKPVPILVELDGEVLGHKFSVRGEGEGDIPNGKLTLKFICLD
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #1  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.9064      86.98      0.9118    31.69  MLKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICKDGKLPHFWPLL
+                                                           ^                                              ^     ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #2  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.6614      90.88      0.6052    35.58  MIKGTLLFENGVPILVELDGEVNGHKFSVRGEGEGDIENAKLTLKFICDDGKWPLFWPLL
+                                                                   ^^                          ^ ^            ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #3  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.7289      89.56      0.6663    34.27  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #4  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.8072      87.44      0.7358    32.14  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIKNEKLTLKFICDDGKLPLFWPLL
+                                                                    ^                          ^ ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #5  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8125      84.74      0.7553    29.44  MRGGTLLFEKKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICLDGKLWPFWPLL
+                                                           ^^      ^                                      ^    ^^
+R9            3.8444      86.74      0.7155    31.44  MRGGTLLFEKKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICLDGKLWPFWPLL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #6  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.7252      88.58      0.6538    33.28  MIKGTLLFEEGVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDDGKLPLFWPLL
+                                                                   ^^                          ^ ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #7  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.6577      89.74      0.5929    34.44  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIVNGKLTLKFICDDGKPPLFWPLL
+                                                                    ^                          ^              ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #8  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.7926      87.31      0.7177    32.02  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDDGKIPLFWPLL
+                                                                                               ^ ^            ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #9  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7130      88.27      0.5953    32.97  MIKGTLLFEDKVKILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^  ^         ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #10  |  6-12_4Xbweight_147P  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.7591      65.93      0.6537     6.32  MSKGNELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPLPTV
+                                                              ^                                                   ^  ^
+R2            3.7394      71.98      0.7795    12.37  MSKGNELFTGVVPILVELDGDINGHKFSVRGEGEGDAINGKLTLKFICTTGKLPVPLPTV
+                                                                               ^               ^
+R3            3.5196      70.39      0.5322    10.78  MSKGNELFTGVVPILVELDGDINGHKFSVRGEGEGDAINGKLTLKFICTEGKLPVPLPTV
+                                                                                                           ^
+R4            3.7340      77.80      0.7904    18.19  MSKGNELFTGVVPILVELDGDVNGHKFSVRGEGEGDAPNGKLTLKFICTEGKLPFPLPTV
+                                                                               ^               ^                ^
+R5            3.7699      73.92      0.6960    14.32  MSKGNELFTGVVPILVELDGDVNGHKFSVRGEGEGDLPNGKLTLKFICTEGKLPFPLPTV
+                                                                                              ^
+R6            3.8066      76.54      0.6714    16.93  MSNGNELFTGVVPILVELDGDVNGHKFSVRGEGEGDLPNGKLTLKFICTEGKLPYPLPTV
+                                                            ^                                                   ^
+R7            3.8914      77.56      0.8162    17.95  MSNGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDLPNGKLTLKFICTEGKLPYPLPTV
+                                                              ^
+R8            3.7793      83.27      0.7131    23.66  MSNIKELFTGVVPILVELDGEVNGHKFSVRGEGEGDLPNGKLTLKFICTEGKLPYPLPYV
+                                                             ^                ^                                     ^
+R9            3.9327      88.82      0.8590    29.21  MSNIKELFTGVVPILVELDGEVDGHKFSVRGEGEGDLPNGKLTLKFICTEGKLPYSLPYV
+                                                                                ^                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #11  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6963      88.31      0.6211    33.01  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #12  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.8144      85.78      0.7283    30.48  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #13  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8357      82.47      0.7503    27.17  MVKGTLLFENKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPTFWPLL
+                                                           ^       ^                                            ^
+R9            3.8403      81.84      0.6504    26.54  MVKGTLLFENKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICKDGELPTFWPLL
+                                                                                                          ^  ^
+R10           3.7615      86.62      0.6764    31.32  MVKGTLLFKNKVPILVELDGEVAGHKFSVRGEGEGDIPNGKLTLKFICKDGELPTFWPLL
+                                                                  ^             ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #14  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6499      88.41      0.5752    33.11  MMKGTLLFEGKVPILVELDGEVEGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #15  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8275      85.37      0.6803    30.08  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLKNKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^               ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #16  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6365      88.57      0.5634    33.27  MMKGTLLFEGKVPILVELDGEVYGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #17  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6573      87.97      0.5792    32.67  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #18  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8357      82.47      0.7503    27.17  MVKGTLLFENKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPTFWPLL
+                                                           ^       ^                                            ^
+R9            3.8403      81.84      0.6504    26.54  MVKGTLLFENKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICKDGELPTFWPLL
+                                                                                                          ^  ^
+R10           3.7864      85.74      0.6960    30.44  MVKGTLLFNNKVPILVELDGEVEGHKFSVRGEGEGDIPNGKLTLKFICKDGELPTFWPLL
+                                                                  ^             ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #19  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.9157      80.79      0.8218    25.49  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNRKLTLKFICTEGKHPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.7704      85.98      0.6282    30.69  MIKGTLLFDGDVPILVELDGEVNGHKFSVRGEGEGDLKNRKLTLKFICTEGKHPVFWPLL
+                                                                  ^ ^                         ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #20  |  6-11_4Xbweight  |  Brightness² × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8125      84.74      0.7553    29.44  MRGGTLLFEKKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICLDGKLWPFWPLL
+                                                           ^^      ^                                      ^    ^^
+R9            3.8302      85.03      0.6790    29.73  MRGGTLLLEKPVPILVELDGEVLGHKFSVRGEGEGDIPNGKLTLKFICLDGKLWPFWPLL
+                                                                 ^  ^           ^
+
+========================================================================================================================
+  GLOBAL TOP 20  —  Brightness × ΔTm
+========================================================================================================================
+  #  Experiment                     Rnd  Brightness   Tm (°C)       ΔTm         Score  Seq (first 50)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  1  6-11_4Xbweight                  10      3.6614     90.88     35.58      130.2791  MIKGTLLFENGVPILVELDGEVNGHKFSVRGEGEGDIENAKLTLKFICDD
+  2  6-11_4Xbweight                  10      3.7289     89.56     34.27      127.7843  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTE
+  3  6-11_4Xbweight                  10      3.6577     89.74     34.44      125.9826  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIVNGKLTLKFICDD
+  4  6-11_4Xbweight                  10      3.7252     88.58     33.28      123.9762  MIKGTLLFEEGVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDD
+  5  6-11_4Xbweight                   8      3.9064     86.98     31.69      123.7794  MLKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICKD
+  6  6-11_4Xbweight                   9      3.7130     88.27     32.97      122.4366  MIKGTLLFEDKVKILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICDD
+  7  6-11_4Xbweight                  10      3.8072     87.44     32.14      122.3565  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIKNEKLTLKFICDD
+  8  6-11_4Xbweight                  10      3.6963     88.31     33.01      122.0137  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTE
+  9  6-11_4Xbweight                  10      3.5717     89.39     34.10      121.7795  MMKGTLLFEGKVPILVELDGEVLGHKFSVRGEGEGDLENKKLTLKFICTE
+ 10  6-11_4Xbweight                  10      3.7926     87.31     32.02      121.4263  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDD
+ 11  6-11_4Xbweight                  10      3.6365     88.57     33.27      121.0021  MMKGTLLFEGKVPILVELDGEVYGHKFSVRGEGEGDLENKKLTLKFICTE
+ 12  6-11_4Xbweight                   9      3.8444     86.74     31.44      120.8762  MRGGTLLFEKKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICLD
+ 13  6-11_4Xbweight                  10      3.6499     88.41     33.11      120.8557  MMKGTLLFEGKVPILVELDGEVEGHKFSVRGEGEGDLENKKLTLKFICTE
+ 14  6-11_4Xbweight                   9      3.6007     88.84     33.55      120.7842  MIKGTLLFEEKVGILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICDD
+ 15  6-11_4Xbweight                  10      3.4734     89.99     34.70      120.5189  MIKGTLLFEDKVKILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICED
+ 16  6-11_4Xbweight                  10      3.5625     88.96     33.66      119.9105  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTE
+ 17  6-11_4Xbweight                  10      3.6573     87.97     32.67      119.4855  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTE
+ 18  6-11_4Xbweight                  10      3.6492     88.03     32.74      119.4657  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTE
+ 19  6-11_4Xbweight                  10      3.5077     89.32     34.02      119.3450  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTE
+ 20  6-11_4Xbweight                  10      3.4923     89.44     34.15      119.2431  MMKGTLLFEGKVPILVELDGEVQGHKFSVRGEGEGDLENKKLTLKFICTE
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #1  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.6614      90.88      0.6052    35.58  MIKGTLLFENGVPILVELDGEVNGHKFSVRGEGEGDIENAKLTLKFICDDGKWPLFWPLL
+                                                                   ^^                          ^ ^            ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #2  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.7289      89.56      0.6663    34.27  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #3  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.6577      89.74      0.5929    34.44  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIVNGKLTLKFICDDGKPPLFWPLL
+                                                                    ^                          ^              ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #4  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.7252      88.58      0.6538    33.28  MIKGTLLFEEGVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDDGKLPLFWPLL
+                                                                   ^^                          ^ ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #5  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.9064      86.98      0.9118    31.69  MLKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICKDGKLPHFWPLL
+                                                           ^                                              ^     ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #6  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7130      88.27      0.5953    32.97  MIKGTLLFEDKVKILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^  ^         ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #7  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.8072      87.44      0.7358    32.14  MIKGTLLFEGDVPILVELDGEVNGHKFSVRGEGEGDIKNEKLTLKFICDDGKLPLFWPLL
+                                                                    ^                          ^ ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #8  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6963      88.31      0.6211    33.01  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #9  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.5717      89.39      0.5088    34.10  MMKGTLLFEGKVPILVELDGEVLGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #10  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7606      84.53      0.6025    29.23  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^
+R10           3.7926      87.31      0.7177    32.02  MIKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIENKKLTLKFICDDGKIPLFWPLL
+                                                                                               ^ ^            ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #11  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6365      88.57      0.5634    33.27  MMKGTLLFEGKVPILVELDGEVYGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #12  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8125      84.74      0.7553    29.44  MRGGTLLFEKKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICLDGKLWPFWPLL
+                                                           ^^      ^                                      ^    ^^
+R9            3.8444      86.74      0.7155    31.44  MRGGTLLFEKKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICLDGKLWPFWPLL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #13  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6499      88.41      0.5752    33.11  MMKGTLLFEGKVPILVELDGEVEGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #14  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.6007      88.84      0.4976    33.55  MIKGTLLFEEKVGILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                      ^         ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #15  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8341      78.08      0.7527    22.79  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICTDGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8902      82.83      0.8229    27.54  MIKGTLLFEEKVPILVELDGEVNGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                           ^       ^                                      ^     ^
+R9            3.7130      88.27      0.5953    32.97  MIKGTLLFEDKVKILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICDDGKLPLFWPLL
+                                                                   ^  ^         ^
+R10           3.4734      89.99      0.4297    34.70  MIKGTLLFEDKVKILVELDGEVDGHKFSVRGEGEGDIPNGKLTLKFICEDGKLPLFWPLL
+                                                                                                          ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #16  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.5625      88.96      0.4979    33.66  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #17  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6573      87.97      0.5792    32.67  MMKGTLLFEGKVPILVELDGEVDGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #18  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.6492      88.03      0.5717    32.74  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #19  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.5077      89.32      0.4535    34.02  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #20  |  6-11_4Xbweight  |  Brightness × ΔTm
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      55.30      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R1            3.8677      64.41      0.7155     9.11  MSKGKELFTGVVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^                               ^
+R2            3.9899      67.90      0.8004    12.60  MSKGKLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                               ^  ^ ^
+R3            3.7477      67.73      0.6015    12.44  MSKGTLLFEGKIPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                              ^      ^
+R4            3.7929      69.66      0.6072    14.36  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVPWPTL
+                                                                     ^
+R5            3.6999      67.89      0.6655    12.59  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPTL
+                                                                                                                 ^
+R6            3.8142      72.08      0.7782    16.78  MSKGTLLFEGKVPILVELDGDVNGHKFSVRGEGEGDITNGKLTLKFICTTGKLPVFWPLL
+                                                                                                                    ^
+R7            3.8522      76.05      0.7478    20.76  MSKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNGKLTLKFICTEGKLPVFWPLL
+                                                                              ^                ^           ^
+R8            3.8443      81.87      0.7517    26.58  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDIKNKKLTLKFICTEGKVPVFWPLL
+                                                           ^                                     ^            ^
+R9            3.8186      84.32      0.6584    29.03  MMKGTLLFEGKVPILVELDGEVNGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                              ^^              ^
+R10           3.4923      89.44      0.4416    34.15  MMKGTLLFEGKVPILVELDGEVQGHKFSVRGEGEGDLENKKLTLKFICTEGKLPVFWPLL
+                                                                                ^
+
+========================================================================================================================
+  GLOBAL TOP 20  —  Brightness Only
+========================================================================================================================
+  #  Experiment                     Rnd  Brightness   Tm (°C)       ΔTm         Score  Seq (first 50)
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  1  6-14_4Xbweight_147P_15round     15      4.7598     78.79     19.18        4.7598
+
+  2  6-14_4Xbweight_147P_15round     15      4.7479     78.51     18.90        4.7479  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+  3  6-14_4Xbweight_147P_15round     15      4.7268     75.52     15.92        4.7268  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTS
+  4  6-14_4Xbweight_147P_15round     15      4.7161     76.38     16.77        4.7161  MFKGGELFKGVVPILVELDGDLGGHKFSVRGEGEGDATNGKLTLKFICTE
+  5  6-14_4Xbweight_147P_15round     15      4.7028     75.38     15.77        4.7028  MFKGGELFKGVVPILVELDGDIGGHKFSVRGEGEGDATNGKLTLKFICTS
+  6  6-14_4Xbweight_147P_15round     15      4.6995     78.05     18.44        4.6995  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+  7  6-14_4Xbweight_147P_15round     15      4.6982     78.60     19.00        4.6982  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+  8  6-14_4Xbweight_147P_15round     15      4.6920     78.47     18.86        4.6920  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+  9  6-14_4Xbweight_147P_15round     15      4.6878     76.68     17.07        4.6878  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 10  6-14_4Xbweight_147P_15round     15      4.6865     78.76     19.16        4.6865  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 11  6-14_4Xbweight_147P_15round     14      4.6841     78.58     18.97        4.6841  MDKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 12  6-14_4Xbweight_147P_15round     15      4.6716     78.03     18.42        4.6716  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 13  6-14_4Xbweight_147P_15round     15      4.6695     78.92     19.31        4.6695  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 14  6-14_4Xbweight_147P_15round     15      4.6648     78.62     19.01        4.6648  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 15  6-14_4Xbweight_147P_15round     15      4.6598     75.78     16.17        4.6598  MFKGGELFKGVVPILVELDGDIGGHKFSVRGEGEGDATNGKLTLKFICTT
+ 16  6-14_4Xbweight_147P_15round     15      4.6570     78.77     19.16        4.6570  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 17  6-14_4Xbweight_147P_15round     15      4.6528     77.51     17.91        4.6528  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDSTNGKLTLKFICTE
+ 18  6-14_4Xbweight_147P_15round     15      4.6513     78.25     18.65        4.6513  MFKGKELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 19  6-14_4Xbweight_147P_15round     14      4.6494     73.96     14.35        4.6494  MFNGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+ 20  6-14_4Xbweight_147P_15round     15      4.6480     77.66     18.05        4.6480  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTE
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #1  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5357      78.63      0.7959    19.02  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.7598      78.79      0.9617    19.18  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #2  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5357      78.63      0.7959    19.02  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.7479      78.51      0.9414    18.90  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #3  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5253      78.59      0.7846    18.98  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.7268      75.52      0.8560    15.92  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTSGKGPVFWPSL
+                                                                                                           ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #4  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5253      78.59      0.7846    18.98  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.7161      76.38      0.8616    16.77  MFKGGELFKGVVPILVELDGDLGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                                               ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #5  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5253      78.59      0.7846    18.98  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.7028      75.38      0.8273    15.77  MFKGGELFKGVVPILVELDGDIGGHKFSVRGEGEGDATNGKLTLKFICTSGKGPVFWPSL
+                                                                               ^                           ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #6  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5135      78.58      0.7724    18.97  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6995      78.05      0.8762    18.44  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVVWPSL
+                                                                                                                 ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #7  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.6051      79.01      0.8767    19.40  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6982      78.60      0.8856    19.00  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #8  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5135      78.58      0.7724    18.97  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6920      78.47      0.8760    18.86  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVVWPSL
+                                                                                                                 ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #9  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5103      78.95      0.7747    19.34  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6878      76.68      0.8367    17.07  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #10  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5135      78.58      0.7724    18.97  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6865      78.76      0.8755    19.16  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVLWPSL
+                                                                                                                 ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #11  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1916      78.27      0.5312    18.66  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.3359      78.46      0.6565    18.85  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R13           4.5037      76.73      0.7997    17.12  MDKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R14           4.6841      78.58      0.9602    18.97  MDKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGEVFWPSL
+                                                                                                               ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #12  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.6051      79.01      0.8767    19.40  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6716      78.03      0.8448    18.42  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #13  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5357      78.63      0.7959    19.02  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6695      78.92      0.8593    19.31  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #14  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5357      78.63      0.7959    19.02  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6648      78.62      0.8485    19.01  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #15  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5253      78.59      0.7846    18.98  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6598      75.78      0.7902    16.17  MFKGGELFKGVVPILVELDGDIGGHKFSVRGEGEGDATNGKLTLKFICTTGKGPVFWPSL
+                                                                               ^                           ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #16  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5357      78.63      0.7959    19.02  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6570      78.77      0.8428    19.16  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #17  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5586      78.27      0.8142    18.66  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6528      77.51      0.8150    17.91  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDSTNGKLTLKFICTEGKGPVFWPSL
+                                                                                              ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #18  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5118      78.75      0.7733    19.14  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6513      78.25      0.8271    18.65  MFKGKELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                              ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #19  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1916      78.27      0.5312    18.66  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.3359      78.46      0.6565    18.85  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R13           4.5520      75.98      0.8347    16.37  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R14           4.6494      73.96      0.8374    14.35  MFNGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                            ^
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  Evolution Path #20  |  6-14_4Xbweight_147P_15round  |  Brightness Only
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Round     Brightness    Tm (°C)   Composite      ΔTm  Sequence (first 60, ^=mutation)
+────────────────────────────────────────────────────────────────────────────────────────────────────
+RWT              N/A      59.61      0.0000     0.00  MSKGEELFTGVVPILVELDGDVNGHKFSVRGEGEGDATNGKLTLKFICTTGKLPVPWPTL
+R12           4.1608      78.36      0.5099    18.75  MSKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R12           4.5415      78.74      0.8734    19.13  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+                                                           ^
+R13           4.4435      79.40      0.7922    19.79  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R14           4.5135      78.58      0.7724    18.97  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVFWPSL
+
+R15           4.6480      77.66      0.8125    18.05  MFKGGELFKGVVPILVELDGDVGGHKFSVRGEGEGDATNGKLTLKFICTEGKGPVYWPSL
+                                                                                                                 ^
+
+
+CSV with full rankings: analysis_output/global_all_sequences.csv
