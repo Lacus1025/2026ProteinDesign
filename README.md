@@ -6,156 +6,16 @@
 
 本项目由两个阶段构成：**第一阶段**训练亮度预测回归器，**第二阶段**利用该回归器结合 Tm 预测器进行多目标进化优化。
 
-### 阶段一：监督学习 — 训练亮度预测器
+<div align="center">
+  <img src="fig1.jpg" width="70%"/>
+</div>
 
-```
-┌──────────────────┐
-│ 1. 数据准备                                    │
-│                                                │
-│ GFP_data.xlsx                                  │
-│ (14w+ 突变体, 5 种野生型 GFP)                    │
-│   │                                            │
-│   ▼ convert_gfp_data.py                        │
-│ 解析突变字符串 (S65G:Y66F), 重组全长序列           │
-│ 序列过滤: 225 ≤ len ≤ 250 aa                   │
-│   │                                            │
-│   ▼ ESMC-6B (600M 参数 PLM)                     │
-│ Per-residue embedding [250, 2560]               │
-│   │                                            │
-│   ▼ 5段平均池化                                  │
-│ reshape(5, 50, 2560) → mean(axis=1) → [12800]   │
-│   │                                            │
-│   ▼ 分片导出 (每1000条一shard)                    │
-│ gfp_dataset_shard_*.json + *_embeddings.npy      │
-│ gfp_dataset_shards.json (分片清单)               │
-│                                                │
-│ 存储优化: ~341 GB → ~5.5 GB                     │
-└──────────────────┘
-         │
-         ▼
-┌──────────────────┐
-│ 2. 模型训练                                    │
-│                                                │
-│ 数据划分: 80/10/10 (train/val/test)             │
-│                                                │
-│ BrightnessRegressor                            │
-│   Input: [batch, 12800]                        │
-│   → Linear(12800→4096) + BN + GELU + Dropout(0.3) │
-│   → ResBlock(4096→4096, d=0.2)                 │
-│   → ResBlock(4096→512,  d=0.2)                 │
-│   → ResBlock(512→256,   d=0.1)                 │
-│   → ResBlock(256→128,   d=0.1)                 │
-│   → ResBlock(128→64)                           │
-│   → Linear(64→1)                               │
-│   Output: [batch] (log1p 空间亮度)              │
-│                                                │
-│ 损失函数: MSE(log1p(brightness), pred)          │
-│ 优化器: Adam, lr=5e-4                            │
-│ 调度器: ReduceLROnPlateau (factor=0.5, patience=15) │
-│ 梯度裁剪: max_norm=1.0                          │
-│ 早停: patience=40 epochs                        │
-│ 批次大小: 512                                   │
-│   │                                            │
-│   ▼                                            │
-│ model_final.pth + training_logs.json            │
-│ evaluation_results.json                        │
-└──────────────────┘
-```
+<div align="center">
+  <img src="fig2.png" width="70%"/>
+</div>
 
-### 阶段二：进化优化 — 多目标（亮度 + 热稳定性）
-
-```
-┌─────────────────────────────────────────────────────┐
-│ sfGFP 种子序列 (238 aa, S147P 修正)                   │
-│   │                                                  │
-│   ▼ 每轮迭代 (共10轮)                                │
-│                                                      │
-│ ┌──────────────┐    ┌──────────────────────┐         │
-│ │ S4PRED 预测   │───>│ 掩码策略              │         │
-│ │ 二级结构 (H/E/C)│   │ · 锁定关键功能残基     │         │
-│ └──────────────┘    │   (sfGFP: 21个位置固定)  │         │
-│                     │ · 排除非coil区域        │         │
-│                     │   (保护H/E结构残基)      │         │
-│                     │ · 5%随机掩码为 _         │         │
-│                     └──────────┬───────────┘         │
-│                                │                      │
-│                                ▼                      │
-│                     ┌──────────────────────┐         │
-│                     │ ESM3-open 掩码生成     │         │
-│                     │ · num_steps=8          │         │
-│                     │ · temperature=1.5      │         │
-│                     │   (±20%随机扰动)        │         │
-│                     │ · 200 seqs/parent      │         │
-│                     └──────────┬───────────┘         │
-│                                │                      │
-│                                ▼                      │
-│                     ┌──────────────────────┐         │
-│                     │ 序列质量控制           │         │
-│                     │ · 去重                  │         │
-│                     │ · 排除无效氨基酸(BJOUXZ) │         │
-│                     │ · 排除列表过滤(13w+条)   │         │
-│                     │ · 长度检查(225-250)     │         │
-│                     └──────────┬───────────┘         │
-│                                │                      │
-│                                ▼                      │
-│                     ┌──────────────────────┐         │
-│                     │ 双维评估               │         │
-│                     │                        │         │
-│                     │  A. 亮度 (EVAL)         │         │
-│                     │  ESMC-6B → 5段池化     │         │
-│                     │  → BrightnessRegressor │         │
-│                     │  → expm1 恢复原始亮度   │         │
-│                     │                        │         │
-│                     │  B. Tm (TM_PREDICTOR)  │         │
-│                     │  ESMC-600M per-residue │         │
-│                     │  + self-attention 建图  │         │
-│                     │  → ProCeSa GNN → Tm(°C) │         │
-│                     └──────────┬───────────┘         │
-│                                │                      │
-│                                ▼                      │
-│                     ┌──────────────────────┐         │
-│                     │ 综合评分 (轮内全局归一化) │         │
-│                     │                        │         │
-│                     │ b_norm ∈ [0,1]         │         │
-│                     │ dtm_norm ∈ [0,1]       │         │
-│                     │ composite = b²_norm × dtm_norm │
-│                     └──────────┬───────────┘         │
-│                                │                      │
-│                                ▼                      │
-│                     ┌──────────────────────┐         │
-│                     │ Top-K 选择             │         │
-│                     │ Top 10% → 最多20条     │         │
-│                     │ → 下一轮父代            │         │
-│                     └──────────────────────┘         │
-│                                                      │
-│ 输出: pipeline_results_sfGFP.json                     │
-│       pipeline_results_sfGFP_round{N}.json            │
-└─────────────────────────────────────────────────────┘
-```
 
 ---
-
-## 环境配置
-
-```bash
-conda create -n esm python=3.12
-conda activate esm
-pip install -r requirements.txt
-```
-
-## 依赖项
-
-| 包 | 用途 |
-|---|---|
-| torch | 深度学习框架 |
-| numpy | 数值计算 |
-| scikit-learn | 数据集划分与 R² 评估 |
-| transformers | HuggingFace 模型加载 (ESMC-6B, ESMC-600M) |
-| pandas / openpyxl | 读取 Excel 数据 |
-| tqdm | 进度条 |
-| dgl | 图神经网络 (ProCeSa Tm 预测) |
-| esm | ESM3 SDK (序列生成) |
-| huggingface_hub | HuggingFace 模型认证与下载 |
 
 > **外部模型依赖**（需从 GitHub 克隆到项目同级目录）：
 > - [ProCeSa](https://github.com/Lacus1025/ProCeSa) — 热稳定性预测 GNN，放置在 `../ProCeSa/`（即与本项目同级的 ProCeSa 目录）
@@ -182,12 +42,6 @@ python utils/export_dataset_json.py
 - `gfp_dataset_shard_{NNN}_embeddings.npy` — 分片池化嵌入 `[N, 12800]`
 - `gfp_dataset_shards.json` — 分片清单（总记录数、分片数、各分片路径与记录数）
 
-## 训练
-
-```bash
-python model/train.py
-```
-
 ### 训练配置
 
 | 参数 | 值 | 说明 |
@@ -213,34 +67,6 @@ python model/train.py
 - `checkpoints/checkpoint_epoch_{N}.pth.tar` — 周期检查点
 - `training_logs.json` — 每轮训练/验证损失、学习率历史
 - `evaluation_results.json` — 测试集 MSE、R²、100 条随机样本预测详情
-
-## 单序列亮度评估
-
-对任意序列进行亮度预测：
-
-```bash
-python model/eval.py
-```
-
-在代码中使用：
-
-```python
-from model.eval import EVAL
-
-evaluator = EVAL("model_final.pth")
-brightness = evaluator.predict("MSKGEELFTGVV...")
-print(f"预测亮度: {brightness:.4f}")  # 已还原为原始亮度值
-```
-
-`EVAL.predict()` 内部流程与训练时一致：ESMC-6B 提取嵌入 → 5段平均池化 → 模型前向传播 → `expm1` 恢复原始尺度。
-
-## 进化优化管线
-
-运行完整的生成-评分-选择迭代管线：
-
-```bash
-python main.py
-```
 
 ### 配置参数
 
@@ -302,16 +128,6 @@ composite_score = b_norm² × dtm_norm
 
 ---
 
-## 一键运行
-
-```bash
-bash run.sh
-```
-
-依次执行：conda 环境激活 → pip 依赖安装 → 数据集导出（含 ESM 嵌入）→ 训练（日志保存到 `logs/` 目录）。
-
----
-
 ## 项目结构
 
 ```
@@ -342,11 +158,6 @@ bash run.sh
 │   ├── analyze_ss2.py                   # PSIPRED .ss2 二级结构文件解析
 │   └── fetch_fireprotdb.py             # FireProtDB Tm 数据抓取
 └── checkpoints/                         # 训练检查点
-```
-
-> **外部依赖**（需放置在项目同级目录）：
-> - `../ProCeSa/procesa/` — ProCeSa 热稳定性预测模型（含 configs、results、weights）
-> - `../s4pred/` — S4PRED 二级结构预测模型（含 weights/）
 ```
 
 ---
@@ -388,23 +199,6 @@ ESMC-6B 输出:      [L, 2560]           (L = 序列长度, 补零/截断到250)
 ```
 
 相比直接使用 `[250, 2560]` 完整嵌入（~640K 维），池化后的 12800 维向量在保留结构信息的同时大幅降低了存储和计算开销。
-
-### 蛋白质语言模型
-
-| 用途 | 模型 | 参数量 | 输出 |
-|---|---|---|---|
-| 亮度预测嵌入 | ESMC-6B (Biohub/ESMC-6B) | 600M | Per-residue hidden state [L, 2560] |
-| Tm 预测编码 | ESMC-600M (esmc_600m) | 600M | Per-residue embedding + self-attention |
-| 序列生成 | ESM3-open | — | 基于 masked language modeling 的迭代生成 |
-
-### Tm（热稳定性）预测
-
-`TM_PREDICTOR` 将蛋白质序列转换为 DGL 图后由 ProCeSa GNN 进行推理：
-
-1. **编码** — ESMC-600M 提取 per-residue embedding（节点特征）+ self-attention 矩阵
-2. **建图** — 残基为节点（embedding 为节点特征），自注意力矩阵归一化后为非零边的边特征
-3. **推理** — ProCeSa GNN 前向传播输出 ΔTm 或 Tm 预测值
-4. **Tm_wt** — 野生型 sfGFP 序列的 Tm 作为基线，后续序列计算 `ΔTm = Tm - Tm_wt`
 
 ### 数据说明
 
